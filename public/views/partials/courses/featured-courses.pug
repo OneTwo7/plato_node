@@ -1,0 +1,5 @@
+.card.border-dark.mb-3
+  .card-header.text-center.text-white.bg-dark Featured Courses
+  .card-body
+    .row(ng-repeat='course in courses | filter:{featured:true} | limitTo:10')
+      .col-md-12 {{ course.title }}

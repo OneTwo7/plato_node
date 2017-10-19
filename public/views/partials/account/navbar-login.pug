@@ -1,5 +1,8 @@
 div(ng-controller="navbarLoginCtrl")
   form.form-inline(ng-hide="identity.isAuthenticated()")
+    ul.navbar-nav
+      li.nav-item.active
+        a.nav-link(href="/signup") Sign Up
     input.form-control(type="email", placeholder="email", ng-model="email")
     input.form-control(type="password", placeholder="password", ng-model="password")
     button.btn.btn-primary(ng-click="signin(email, password)") Sign In

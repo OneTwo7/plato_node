@@ -36,6 +36,17 @@ angular.module('app').factory('auth', function ($http, $q, $location, identity, 
           $location.path('/');
         });
       }
+    },
+    createUser: function (newUserData) {
+      var newUser = new userResource(newUserData);
+      var dfd = $q.defer();
+      newUser.$save().then(function () {
+        identity.currentUser = newUser;
+        dfd.resolve();
+      }, function (res) {
+        dfd.reject(res.data.reason);
+      });
+      return dfd.promise;
     }
   };
 });

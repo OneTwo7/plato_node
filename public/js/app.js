@@ -12,12 +12,16 @@ angular.module('app').config(function ($routeProvider, $locationProvider) {
   $locationProvider.html5Mode(true);
   $routeProvider
   .when('/', {
-    templateUrl: '/partials/courses/courses',
+    templateUrl: '/partials/home',
     controller: 'mainCtrl'
   })
   .when('/admin/users', {
     templateUrl: '/partials/admin/user-list',
     controller: 'userListCtrl',
     resolve: routeRoleChecks.admin
+  })
+  .when('/signup', {
+    templateUrl: '/partials/account/signup',
+    controller: 'signupCtrl'
   });
 });

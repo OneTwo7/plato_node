@@ -6,6 +6,12 @@
 .x-ng-cloak {
   display: none !important;
 }
+.navbar {
+  margin-bottom: 2rem;
+}
+.jumbotron {
+  margin-top: -2rem;
+}
 .navbar .form-inline input,
 .navbar .form-inline button {
   margin-left: 10px;
