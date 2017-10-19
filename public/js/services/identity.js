@@ -10,7 +10,7 @@ angular.module('app').factory('identity', function ($window, userResource) {
       return !!this.currentUser;
     },
     isAuthorized: function (role) {
-      return !!this.currentUser && ~this.currentUser.roles.indexOf(role);
+      return !!this.currentUser && !!~this.currentUser.roles.indexOf(role);
     }
   };
 });
