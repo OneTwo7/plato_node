@@ -1,18 +1,12 @@
-angular.module('app').factory('auth', function ($http, $q, $location, identity, userResource) {
+angular.module('app').factory('mvAuth', function ($http, $q, $location, mvIdentity, mvUser) {
   return {
     authenticateUser: function (email, password) {
       var dfd = $q.defer();
       $http.post('/login', { email: email, password: password }).then(function (res) {
         if (res.data.success) {
-          var user = new userResource();
+          var user = new mvUser();
           angular.extend(user, res.data.user);
-          identity.currentUser = {
-            email: user.email,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            roles: user.roles,
-            isAdmin: user.isAdmin
-          };
+          mvIdentity.currentUser = user;
           dfd.resolve(true);
         } else {
           dfd.resolve(false);
@@ -23,13 +17,22 @@ angular.module('app').factory('auth', function ($http, $q, $location, identity, 
     logoutUser: function () {
       var dfd = $q.defer();
       $http.post('/logout', { logout: true }).then(function () {
-        identity.currentUser = undefined;
+        mvIdentity.currentUser = undefined;
         dfd.resolve();
       });
       return dfd.promise;
     },
     authorizeCurrentUserForRoute: function (role) {
-      if (identity.isAuthorized(role)) {
+      if (mvIdentity.isAuthorized(role)) {
+        return true;
+      } else {
+        return $q.reject('not authorized').catch(function () {
+          $location.path('/');
+        });
+      }
+    },
+    authorizeAuthenticatedUserForRoute: function () {
+      if (mvIdentity.isAuthenticated()) {
         return true;
       } else {
         return $q.reject('not authorized').catch(function () {
@@ -38,10 +41,22 @@ angular.module('app').factory('auth', function ($http, $q, $location, identity, 
       }
     },
     createUser: function (newUserData) {
-      var newUser = new userResource(newUserData);
+      var newUser = new mvUser(newUserData);
       var dfd = $q.defer();
       newUser.$save().then(function () {
-        identity.currentUser = newUser;
+        mvIdentity.currentUser = newUser;
+        dfd.resolve();
+      }, function (res) {
+        dfd.reject(res.data.reason);
+      });
+      return dfd.promise;
+    },
+    updateCurrentUser: function (newUserData) {
+      var dfd = $q.defer();
+      var clone = angular.copy(mvIdentity.currentUser);
+      angular.extend(clone, newUserData);
+      clone.$update().then(function () {
+        mvIdentity.currentUser = clone;
         dfd.resolve();
       }, function (res) {
         dfd.reject(res.data.reason);

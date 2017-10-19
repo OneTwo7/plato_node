@@ -7,6 +7,8 @@ module.exports = function (app) {
 
   app.post('/api/users', users.createUser);
 
+  app.put('/api/users', users.updateUser);
+
   app.get('/partials/*', function (req, res) {
     res.render('partials/' + req.params[0]);
   });
@@ -32,6 +34,7 @@ function getUserObject (req) {
   if (req.user) {
     var user = req.user;
     return {
+      _id: user._id,
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,

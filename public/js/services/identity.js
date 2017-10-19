@@ -1,7 +1,7 @@
-angular.module('app').factory('identity', function ($window, userResource) {
+angular.module('app').factory('mvIdentity', function ($window, mvUser) {
   var currentUser;
   if (!!$window.bootstrappedUserObject) {
-    currentUser = new userResource();
+    currentUser = new mvUser();
     angular.extend(currentUser, $window.bootstrappedUserObject);
   }
   return {

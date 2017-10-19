@@ -1,17 +1,19 @@
 div(ng-controller="navbarLoginCtrl")
-  form.form-inline(ng-hide="identity.isAuthenticated()")
+  form.form-inline(ng-hide="mvIdentity.isAuthenticated()")
     ul.navbar-nav
       li.nav-item.active
         a.nav-link(href="/signup") Sign Up
     input.form-control(type="email", placeholder="email", ng-model="email")
     input.form-control(type="password", placeholder="password", ng-model="password")
     button.btn.btn-primary(ng-click="signin(email, password)") Sign In
-  ul.navbar-nav(ng-show="identity.isAuthenticated()")
+  ul.navbar-nav(ng-show="mvIdentity.isAuthenticated()")
     li.nav-item.active.dropdown
       a.nav-link.dropdown-toggle(href="" data-toggle="dropdown")
-        | {{ identity.currentUser.firstName + " " + identity.currentUser.lastName }}
+        | {{ mvIdentity.currentUser.firstName + " " + mvIdentity.currentUser.lastName }}
       ul.dropdown-menu
-        li(ng-show="identity.currentUser.isAdmin()")
+        li(ng-show="mvIdentity.currentUser.isAdmin()")
           a.dropdown-item(href="/admin/users") User Admin
+        li
+          a.dropdown-item(href="/profile") Profile
         li
           a.dropdown-item(href="" ng-click="signout()") Sign Out 
