@@ -1,4 +1,4 @@
-angular.module('app').factory('mvAuth', function ($http, $q, $location, mvIdentity, mvUser) {
+angular.module('app').factory('mvAuth', function ($http, $q, $location, $sessionStorage, mvIdentity, mvUser) {
   return {
     authenticateUser: function (email, password) {
       var dfd = $q.defer();
@@ -6,7 +6,7 @@ angular.module('app').factory('mvAuth', function ($http, $q, $location, mvIdenti
         if (res.data.success) {
           var user = new mvUser();
           angular.extend(user, res.data.user);
-          mvIdentity.currentUser = user;
+          mvIdentity.setUser(user);
           dfd.resolve(true);
         } else {
           dfd.resolve(false);
@@ -17,7 +17,7 @@ angular.module('app').factory('mvAuth', function ($http, $q, $location, mvIdenti
     logoutUser: function () {
       var dfd = $q.defer();
       $http.post('/logout', { logout: true }).then(function () {
-        mvIdentity.currentUser = undefined;
+        mvIdentity.removeUser();
         dfd.resolve();
       });
       return dfd.promise;
@@ -44,7 +44,7 @@ angular.module('app').factory('mvAuth', function ($http, $q, $location, mvIdenti
       var newUser = new mvUser(newUserData);
       var dfd = $q.defer();
       newUser.$save().then(function () {
-        mvIdentity.currentUser = newUser;
+        mvIdentity.setUser(newUser);
         dfd.resolve();
       }, function (res) {
         dfd.reject(res.data.reason);
@@ -56,7 +56,7 @@ angular.module('app').factory('mvAuth', function ($http, $q, $location, mvIdenti
       var clone = angular.copy(mvIdentity.currentUser);
       angular.extend(clone, newUserData);
       clone.$update().then(function () {
-        mvIdentity.currentUser = clone;
+        mvIdentity.setUser(clone);
         dfd.resolve();
       }, function (res) {
         dfd.reject(res.data.reason);

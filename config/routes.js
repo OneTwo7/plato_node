@@ -32,25 +32,7 @@ module.exports = function (app) {
   });
 
   app.get('*', function (req, res) {
-    res.render('main', {
-      bootstrappedUser: getUserObject(req)
-    });
+    res.render('main');
   });
 
 };
-
-function getUserObject (req) {
-  if (req.user) {
-    var user = req.user;
-    return {
-      _id: user._id,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      roles: user.roles,
-      isAdmin: user.isAdmin
-    };
-  } else {
-    return undefined;
-  }
-}
