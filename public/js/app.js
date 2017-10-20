@@ -18,20 +18,28 @@ angular.module('app').config(function ($routeProvider, $locationProvider) {
   $routeProvider
   .when('/', {
     templateUrl: '/partials/home',
-    controller: 'mainCtrl'
+    controller: 'MainCtrl'
   })
   .when('/admin/users', {
     templateUrl: '/partials/admin/user-list',
-    controller: 'userListCtrl',
+    controller: 'UserListCtrl',
     resolve: routeRoleChecks.admin
   })
   .when('/signup', {
     templateUrl: '/partials/account/signup',
-    controller: 'signupCtrl'
+    controller: 'SignupCtrl'
   })
   .when('/profile', {
     templateUrl: '/partials/account/profile',
-    controller: 'profileCtrl',
+    controller: 'ProfileCtrl',
     resolve: routeRoleChecks.user
+  })
+  .when('/courses', {
+    templateUrl: '/partials/courses/course-list',
+    controller: 'CourseListCtrl'
+  })
+  .when('/courses/:id', {
+    templateUrl: '/partials/courses/course-details',
+    controller: 'CourseDetailsCtrl'
   });
 });

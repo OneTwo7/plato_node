@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
-var encrypt = require('../app/utilities/encrypt');
+var encrypt = require('../utilities/encrypt');
 
 exports.getUsers = function (req, res) {
   User.find({}).exec(function (err, collection) {
@@ -34,7 +34,7 @@ exports.createUser = function (req, res, next) {
 exports.updateUser = function (req, res, next) {
   var userUpdates = req.body;
 
-  if (parseInt(req.user._id) !== parseInt(userUpdates._id) && !req.user.hasRole('admin')) {
+  if (req.user._id.toString() !== userUpdates._id && !req.user.hasRole('admin')) {
     res.status(403);
     return res.end();
   }

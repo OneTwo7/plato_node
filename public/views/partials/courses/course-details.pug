@@ -1,0 +1,11 @@
+.container
+  h1 {{ course.title }}
+  .row
+    .col-md-6
+      p(ng-show='course.featured') Featured
+      p Published on {{ course.published | date }}
+    .col-md-6
+      .card.bg-light.border-secondary
+        .card-header.text-center.bg-secondary Tags
+        .card-body
+          div(ng-repeat='tag in course.tags') {{ tag }}

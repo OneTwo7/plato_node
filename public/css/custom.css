@@ -16,6 +16,12 @@
 .navbar .form-inline button {
   margin-left: 10px;
 }
+.content .form-inline {
+  margin-bottom: 1rem;
+}
+.content .form-inline select {
+  margin-left: 10px;
+}
 footer {
   border-top: 1px solid #343a40;
   padding: 1rem;

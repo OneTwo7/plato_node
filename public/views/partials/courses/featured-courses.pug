@@ -2,4 +2,5 @@
   .card-header.text-center.text-white.bg-dark Featured Courses
   .card-body
     .row(ng-repeat='course in courses | filter:{featured:true} | limitTo:10')
-      .col-md-12 {{ course.title }}
+      .col-md-12
+        a(href='/courses/{{ course._id }}') {{ course.title }}
