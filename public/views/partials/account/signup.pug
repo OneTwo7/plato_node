@@ -22,6 +22,11 @@
             .col-md-10
               input.form-control(name="password", type="password", placeholder="password", ng-model="password", required)
           .form-group.row
+            label.col-md-2.col-form-label.text-right(for="passwordConfirmation") Password Confirmation
+            .col-md-10
+              input.form-control(name="passwordConfirmation" type="password", placeholder="repeat password" ng-model="passwordConfirmation" mv-password-confirmation="password")
+              div.error-message(ng-show="signupForm.passwordConfirmation.$invalid" ng-include="'/partials/messages/password-confirmation'")
+          .form-group.row
             .col-md-10.ml-md-auto
               .float-right
                 button.btn.btn-primary(ng-click="signup()", ng-disabled="signupForm.$invalid") Submit

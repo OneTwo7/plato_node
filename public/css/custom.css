@@ -33,3 +33,17 @@ footer {
 .toast-success {
   background-color: #0cb0e8;
 }
+.error-message {
+  color: #dc3545;
+}
+.ng-dirty.ng-invalid {
+  border-color: #dc3545;
+}
+.ng-dirty.ng-invalid:focus {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 0.2rem rgba(217,31,49,0.25);
+}
+input[type='email'].ng-dirty.ng-invalid:focus {
+  border-color: #80bdff;
+  box-shadow: 0 0 0 0.2rem rgba(0,123,255,0.25);
+}
