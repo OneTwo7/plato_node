@@ -11,6 +11,7 @@ angular.module('app').factory('mvIdentity', function ($window, $sessionStorage, 
     currentUser: currentUser,
     setUser: function (user) {
       delete user.password;
+      delete user.salt
       $sessionStorage.currentUser = user;
       this.currentUser = user;
     },
