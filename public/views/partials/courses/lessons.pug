@@ -1,0 +1,9 @@
+.container
+  .row
+    .col-md-6.offset-md-3
+      .card.border-dark.mb-3
+        .card-header.text-center.text-white.bg-dark {{ course.title }} | Lessons
+        .card-body
+          .row(ng-repeat='lesson in lessons')
+            .col-md-12
+              pre {{ lesson.content }}

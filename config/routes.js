@@ -14,8 +14,10 @@ module.exports = function (app) {
 
   app.get('/api/courses/:id', courses.getCourseById);
 
+  app.get('/api/courses/:id/lessons', courses.getLessonsByCourseId);
+
   app.all('/api/*', function (req, res) {
-    res.send(404);
+    res.sendStatus(404);
   });
 
   app.get('/partials/*', function (req, res) {
