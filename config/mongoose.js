@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var UserModel = require('../app/models/User');
 var CourseModel = require('../app/models/Course');
+var LessonModel = require('../app/models/Lesson');
 
 module.exports = function (config) {
 
@@ -16,5 +17,7 @@ module.exports = function (config) {
   UserModel.createDefaultUsers();
 
   CourseModel.createDefaultCourses();
+
+  LessonModel.createDefaultLessons();
 
 };

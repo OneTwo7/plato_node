@@ -1,6 +1,7 @@
 var auth = require('./auth');
 var users = require('../app/controllers/users');
 var courses = require('../app/controllers/courses');
+var lessons = require('../app/controllers/lessons');
 
 module.exports = function (app) {
 
@@ -14,7 +15,9 @@ module.exports = function (app) {
 
   app.get('/api/courses/:id', courses.getCourseById);
 
-  app.get('/api/courses/:id/lessons', courses.getLessonsByCourseId);
+  app.get('/api/courses/:id/lessons', lessons.getLessonsByCourseId);
+
+  app.post('/api/courses/:id/lessons', lessons.createLesson);
 
   app.all('/api/*', function (req, res) {
     res.sendStatus(404);

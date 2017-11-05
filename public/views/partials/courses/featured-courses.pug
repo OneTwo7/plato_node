@@ -3,4 +3,4 @@
   .card-body
     .row(ng-repeat='course in courses | filter:{featured:true} | limitTo:10')
       .col-md-12
-        a(href='/courses/{{ course._id }}') {{ course.title }}
+        a(href='/courses/{{ course._id }}/lessons') {{ course.title }}

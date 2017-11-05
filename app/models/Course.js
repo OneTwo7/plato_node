@@ -9,13 +9,7 @@ var courseSchema = Schema({
   tags: [String]
 });
 
-var lessonSchema = Schema({
-  course:  { type: Schema.Types.ObjectId, ref: 'Course' },
-  content: { type: String, require: '{PATH} is required' }
-});
-
 var Course = mongoose.model('Course', courseSchema);
-var Lesson = mongoose.model('Lesson', lessonSchema);
 
 var sampleCourses = [
   { title: 'Ruby on Rails Tutorial', published: new Date(2017, 9, 10), featured: true, tags: ['Ruby on Rails'] },
@@ -40,40 +34,11 @@ var sampleCourses = [
   { title: 'Go', published: new Date(2017, 9, 17), featured: false, tags: ['Go'] }
 ];
 
-var sampleLessons = [
-  { content: 'Sample content 1' },
-  { content: 'Sample content 2' },
-  { content: 'Sample content 3' },
-  { content: 'Sample content 4' },
-  { content: 'Sample content 5' },
-  { content: 'Sample content 6' },
-  { content: 'Sample content 7' },
-  { content: 'Sample content 8' },
-  { content: 'Sample content 9' },
-  { content: 'Sample content 10' },
-  { content: 'Sample content 11' },
-  { content: 'Sample content 12' },
-  { content: 'Sample content 13' }
-];
-
 exports.createDefaultCourses = function () {
   Course.find({}).exec(function (err, collection) {
     if (collection.length === 0) {
       sampleCourses.forEach(function (course) {
         Course.create(course);
-      });
-    }
-  });
-
-  Lesson.find({}).exec(function (err, collection) {
-    if (collection.length === 0) {
-      Course.findOne({ title: /tutorial/i }).exec(function (err, course) {
-        sampleLessons.forEach(function (lesson) {
-          Lesson.create({
-            course: course._id,
-            content: lesson.content
-          });
-        });
       });
     }
   });

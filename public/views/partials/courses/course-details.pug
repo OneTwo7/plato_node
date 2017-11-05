@@ -1,10 +1,8 @@
 .container
-  h1 {{ course.title }}
   .row
     .col-md-6
       p(ng-show='course.featured') Featured
       p Published on {{ course.published | date }}
-      a(href='/courses/{{ course._id }}/lessons') Lessons
     .col-md-6
       .card.bg-light.border-secondary
         .card-header.text-center.bg-secondary Tags

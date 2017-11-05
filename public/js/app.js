@@ -43,7 +43,7 @@ angular.module('app').config(function ($routeProvider, $locationProvider) {
     controller: 'CourseDetailsCtrl'
   })
   .when('/courses/:id/lessons', {
-    templateUrl: '/partials/courses/lessons',
+    templateUrl: '/partials/lessons/lessons',
     controller: 'LessonsCtrl'
   });
 });
