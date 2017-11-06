@@ -17,7 +17,11 @@ module.exports = function (app) {
 
   app.get('/api/courses/:id/lessons', lessons.getLessonsByCourseId);
 
+  app.get('/api/courses/:id/lessons/:lesson_id', lessons.getLessonById);
+
   app.post('/api/courses/:id/lessons', lessons.createLesson);
+
+  app.put('/api/courses/:id/lessons/:lesson_id', lessons.updateLesson);
 
   app.all('/api/*', function (req, res) {
     res.sendStatus(404);

@@ -8,7 +8,26 @@ angular.module('app').controller('LessonsCtrl', function ($scope, $routeParams, 
     });
   });
 
+  $scope.type = 'new';
+
   $scope.formData = {};
+
+  $scope.formParams = {
+    new: {
+      header: 'New Lesson',
+      button: 'Create',
+      action: function () {
+        $scope.create();
+      }
+    },
+    edit: {
+      header: 'Edit Lesson',
+      button: 'Update',
+      action: function () {
+        $scope.update();
+      }
+    }
+  }
 
   $scope.lessons = mvLesson.get({ _id: $routeParams.id });
 
@@ -28,6 +47,44 @@ angular.module('app').controller('LessonsCtrl', function ($scope, $routeParams, 
     });
   };
 
+  $scope.edit = function (id) {
+    var target;
+    $scope.lessons.forEach(function (lesson) {
+      if (lesson._id === id) {
+        target = lesson;
+      }
+    });
+    $scope.type = 'edit';
+    $scope.formData.lesson_id = id;
+    $scope.formData.title = target.title;
+    $scope.formData.content = target.content;
+    $('#list-edit-lesson-list').tab('show');
+  };
+
+  $scope.update = function () {
+    var lessonData = {
+      lesson_id: $scope.formData.lesson_id,
+      title:     $scope.formData.title,
+      content:   $scope.formData.content
+    };
+
+    mvLessonFactory.update(lessonData).then(function (lesson) {
+      mvNotifier.notify('Lesson updated!');
+      var lesson_id = lesson._id;
+      $scope.lessons.forEach(function (item, index) {
+        if (item._id === lesson_id) {
+          $scope.lessons[index] = lesson;
+        }
+      });
+      $timeout(function () {
+        $('#list-edit-lesson-list').removeClass('active');
+        $('a[href="#list-' + lesson_id + '"]').tab('show');
+      });
+    }, function (reason) {
+      mvNotifier.error(reason);
+    });
+  };
+
   $q.race([
     $scope.lessons.$promise
   ]).then(function() { 
@@ -37,23 +94,27 @@ angular.module('app').controller('LessonsCtrl', function ($scope, $routeParams, 
   $scope.$on('dataloaded', function () {
     $timeout(function () {
       var $courseControlsLinks = $('#course-controls a');
-      var $lessonsTabListLinks = $('#lessons-tab-list a');
 
       if ($scope.lessons.length) {
-        $lessonsTabListLinks.eq(0).addClass('active');
+        $('#lessons-tab-list a:first').addClass('active');
         $('.lesson').eq(0).addClass('active show');
       } else {
         $courseControlsLinks.eq(0).addClass('active');
         $('#new-lesson-tab').addClass('active show');
       }
 
-      $courseControlsLinks.click(function (e) {
-        e.preventDefault();
-        $(this).tab('show');
+      $('#list-new-lesson-list').click(function () {
+        $scope.$apply(function () {
+          $scope.type = 'new';
+          $scope.formData = {};
+          $('form[name="newLessonForm"]')[0].reset();
+        });
       });
 
-      $courseControlsLinks.click(function () {
-        $lessonsTabListLinks.removeClass('active');
+      $courseControlsLinks.click(function (e) {
+        $('#lessons-tab-list a').removeClass('active');
+        e.preventDefault();
+        $(this).tab('show');
       });
     });
   });

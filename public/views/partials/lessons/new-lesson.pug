@@ -3,11 +3,11 @@
     form.form-horizontal(name="newLessonForm")
       fieldset
         .card-header
-          h1 New Lesson
+          h2 {{ formParams[type].header }}
         .card-body
           .form-group
             input.form-control(name="title" type="text" placeholder="Title" ng-model="formData.title" required)
           .form-group
             textarea.form-control(name="content" placeholder="Content" ng-model="formData.content", required)
           .form-group
-            button.btn.btn-primary(ng-click="create()", ng-disabled="newLessonForm.$invalid") Create
+            button.btn.btn-primary(ng-click="formParams[type].action()", ng-disabled="newLessonForm.$invalid") {{ formParams[type].button }}

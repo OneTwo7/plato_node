@@ -4,6 +4,7 @@
     .col-md-3
       .list-group#course-controls(role='tablist')
         a.list-group-item.list-group-item-action(id='list-new-lesson-list' data-toggle='list' href='#new-lesson-tab' role='tab' aria-controls='new lesson form') New Lesson
+        a.list-group-item.list-group-item-action(id='list-edit-lesson-list' data-toggle='list' href='#edit-lesson-tab' ng-hide='true')
         a.list-group-item.list-group-item-action(id='list-course-details-list' data-toggle='list' href='#details' role='tab' aria-controls='course details') Course Details
 
       .list-group#lessons-tab-list(role='tablist')
@@ -11,6 +12,8 @@
     .col-md-9
       .tab-content#lessons-tabs
         .tab-pane.fade#new-lesson-tab(role='tabpanel' aria-labelledby='list-new-lesson-list')
+          div(ng-include='"/partials/lessons/new-lesson"')
+        .tab-pane.fade#edit-lesson-tab(role='tabpanel' aria-labelledby='list-edit-lesson-list')
           div(ng-include='"/partials/lessons/new-lesson"')
         .tab-pane.fade#details(role='tabpanel' aria-labelledby='list-course-details-list')
           div(ng-include='"/partials/courses/course-details"')
@@ -20,3 +23,6 @@
             .card-header.text-center.text-white.bg-dark {{ lesson.title }}
             .card-body
               pre {{ lesson.content }}
+            .card-footer
+              button.btn.btn-primary#lesson-edit(ng-click='edit(lesson._id)' type='button') Edit
+              button.btn.btn-danger#lesson-delete(type='button') Delete
