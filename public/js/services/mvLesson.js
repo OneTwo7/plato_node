@@ -5,18 +5,13 @@ angular.module('app').factory('mvLesson', function ($resource) {
       isArray: true
     },
     getOne: {
-      method: 'GET',
-      isArray: false,
-      params: { _lesson_id: '@lesson_id' }
+      method: 'GET'
     },
     update: {
-      method: 'PUT',
-      isArray: false
+      method: 'PUT'
     },
     delete: {
-      method: 'DELETE',
-      isArray: false,
-      params: { _lesson_id: '@lesson_id' }
+      method: 'DELETE'
     }
   });
 

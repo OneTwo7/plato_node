@@ -1,5 +1,8 @@
 angular.module('app').controller('ProfileCtrl', function ($scope, mvIdentity, mvAuth, mvNotifier) {
 
+  $scope.formName = 'profileForm';
+  $scope.header = 'Profile';
+
   $scope.email = mvIdentity.currentUser.email;
   $scope.firstName = mvIdentity.currentUser.firstName;
   $scope.lastName = mvIdentity.currentUser.lastName;

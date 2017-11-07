@@ -12,11 +12,6 @@ angular.module('app').controller('LessonsCtrl', function ($scope, $routeParams, 
 
   $scope.formData = {};
 
-  $scope.confirm = function (id) {
-    $scope.lesson_id = id;
-    $('#delete-modal').modal();
-  };
-
   $scope.formParams = {
     new: {
       header: 'New Lesson',
@@ -105,6 +100,11 @@ angular.module('app').controller('LessonsCtrl', function ($scope, $routeParams, 
     }, function (reason) {
       mvNotifier.error(reason);
     });
+  };
+
+  $scope.confirm = function (id) {
+    $scope.lesson_id = id;
+    $('#delete-modal').modal();
   };
 
   $q.race([

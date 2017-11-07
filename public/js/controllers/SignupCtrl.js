@@ -1,5 +1,8 @@
 angular.module('app').controller('SignupCtrl', function ($scope, $location, mvAuth, mvNotifier) {
 
+  $scope.formName = 'signupForm';
+  $scope.header = 'New User Information';
+
   $scope.signup = function () {
     var newUserData = {
       firstName: $scope.firstName,

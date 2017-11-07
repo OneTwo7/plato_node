@@ -43,6 +43,7 @@ module.exports = function (app) {
   });
 
   app.get('*', function (req, res) {
+    console.log(res.pugTitle);
     res.render('main');
   });
 

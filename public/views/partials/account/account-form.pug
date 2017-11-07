@@ -1,9 +1,9 @@
 .container
   .card.bg-light
-    form.form-horizontal(name="profileForm")
+    form.form-horizontal(name="{{ formName }}")
       fieldset
         .card-header
-          h1 Profile
+          h1 {{ header }}
         .card-body
           .form-group.row
             label.col-md-2.col-form-label.text-right(for="email") Email
@@ -25,10 +25,10 @@
             label.col-md-2.col-form-label.text-right(for="passwordConfirmation") Password Confirmation
             .col-md-10
               input.form-control(name="passwordConfirmation" type="password", placeholder="repeat password" ng-model="passwordConfirmation" mv-password-confirmation="password")
-              div.error-message(ng-show="profileForm.passwordConfirmation.$invalid" ng-include="'/partials/messages/password-confirmation'")
+              div.error-message(ng-show="{{ formName }}.passwordConfirmation.$dirty && {{ formName }}.passwordConfirmation.$invalid" ng-include="'/partials/messages/password-confirmation'")
           .form-group.row
             .col-md-10.ml-md-auto
               .float-right
-                button.btn.btn-primary(ng-click="update()", ng-disabled="profileForm.$invalid") Submit
+                button.btn.btn-primary(ng-click="update()", ng-disabled="{{ formName }}.$invalid") Submit
                 | &nbsp;
                 a.btn.btn-default(href="/") Cancel

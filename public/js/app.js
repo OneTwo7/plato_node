@@ -26,11 +26,11 @@ angular.module('app').config(function ($routeProvider, $locationProvider) {
     resolve: routeRoleChecks.admin
   })
   .when('/signup', {
-    templateUrl: '/partials/account/signup',
+    templateUrl: '/partials/account/account-form',
     controller: 'SignupCtrl'
   })
   .when('/profile', {
-    templateUrl: '/partials/account/profile',
+    templateUrl: '/partials/account/account-form',
     controller: 'ProfileCtrl',
     resolve: routeRoleChecks.user
   })
@@ -39,10 +39,6 @@ angular.module('app').config(function ($routeProvider, $locationProvider) {
     controller: 'CourseListCtrl'
   })
   .when('/courses/:id', {
-    templateUrl: '/partials/courses/course-details',
-    controller: 'CourseDetailsCtrl'
-  })
-  .when('/courses/:id/lessons', {
     templateUrl: '/partials/lessons/lessons',
     controller: 'LessonsCtrl'
   });
