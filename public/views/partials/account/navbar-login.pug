@@ -3,8 +3,8 @@ div(ng-controller="NavbarLoginCtrl")
     ul.navbar-nav
       li.nav-item.active
         a.nav-link(href="/signup") Sign Up
-    input.form-control(type="email", placeholder="email", ng-model="email")
-    input.form-control(type="password", placeholder="password", ng-model="password")
+    input.form-control(type="email" placeholder="email" spellcheck="false" ng-model="email")
+    input.form-control(type="password" placeholder="password" ng-model="password")
     button.btn.btn-primary(ng-click="signin(email, password)") Sign In
   ul.navbar-nav(ng-show="mvIdentity.isAuthenticated()")
     li.nav-item.active.dropdown

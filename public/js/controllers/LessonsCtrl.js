@@ -1,4 +1,4 @@
-angular.module('app').controller('LessonsCtrl', function ($scope, $routeParams, $q, $timeout, mvLesson, mvCachedCourses, mvLessonFactory, mvNotifier) {
+angular.module('app').controller('LessonsCtrl', function ($scope, $routeParams, $q, $timeout, mvLesson, mvCachedCourses, mvLessonFactory, mvNotifier, mvIdentity) {
   
   mvCachedCourses.query().$promise.then(function (collection) {
     collection.forEach(function (course) {
@@ -7,6 +7,8 @@ angular.module('app').controller('LessonsCtrl', function ($scope, $routeParams, 
       }
     });
   });
+
+  $scope.mvIdentity = mvIdentity;
 
   $scope.type = 'new';
 
@@ -107,6 +109,11 @@ angular.module('app').controller('LessonsCtrl', function ($scope, $routeParams, 
     $('#delete-modal').modal();
   };
 
+  $scope.cancelEdit = function () {
+    $('#list-edit-lesson-list').removeClass('active');
+    $('#lessons-tab-list .active').removeClass('active').tab('show');
+  };
+
   $q.race([
     $scope.lessons.$promise
   ]).then(function() { 
@@ -137,11 +144,13 @@ angular.module('app').controller('LessonsCtrl', function ($scope, $routeParams, 
 
   function showPane () {
     if ($scope.lessons.length) {
-      $('#lessons-tab-list a:first').addClass('active');
-      $('.lesson').eq(0).addClass('active show');
+      $('#lessons-tab-list a:first').tab('show');
     } else {
-      $('#course-controls a:first').addClass('active');
-      $('#new-lesson-tab').addClass('active show');
+      if (mvIdentity.isAuthenticated() && mvIdentity.currentUser.isAdmin()) {
+        $('#list-new-lesson-list').tab('show');
+      } else {
+        $('#list-course-details-list').tab('show');
+      }
     }
   }
 

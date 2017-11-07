@@ -9,5 +9,6 @@
             input.form-control(name="title" type="text" placeholder="Title" ng-model="formData.title" required)
           .form-group
             textarea.form-control(name="content" placeholder="Content" ng-model="formData.content", required)
-          .form-group
+          .form-group.lesson-controls
             button.btn.btn-primary(ng-click="formParams[type].action()", ng-disabled="newLessonForm.$invalid") {{ formParams[type].button }}
+            button.btn.btn-secondary(ng-show="type === 'edit'" ng-click="cancelEdit()") Cancel

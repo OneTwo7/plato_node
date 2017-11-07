@@ -19,11 +19,11 @@ module.exports = function (app) {
 
   app.get('/api/courses/:id/lessons/:lesson_id', lessons.getLessonById);
 
-  app.post('/api/courses/:id/lessons', lessons.createLesson);
+  app.post('/api/courses/:id/lessons', auth.requiresRole('admin'), lessons.createLesson);
 
-  app.put('/api/courses/:id/lessons/:lesson_id', lessons.updateLesson);
+  app.put('/api/courses/:id/lessons/:lesson_id', auth.requiresRole('admin'), lessons.updateLesson);
 
-  app.delete('/api/courses/:id/lessons/:lesson_id', lessons.deleteLesson);
+  app.delete('/api/courses/:id/lessons/:lesson_id', auth.requiresRole('admin'), lessons.deleteLesson);
 
   app.all('/api/*', function (req, res) {
     res.sendStatus(404);
