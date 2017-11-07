@@ -12,6 +12,11 @@ angular.module('app').controller('LessonsCtrl', function ($scope, $routeParams, 
 
   $scope.formData = {};
 
+  $scope.confirm = function (id) {
+    $scope.lesson_id = id;
+    $('#delete-modal').modal();
+  };
+
   $scope.formParams = {
     new: {
       header: 'New Lesson',
@@ -27,7 +32,7 @@ angular.module('app').controller('LessonsCtrl', function ($scope, $routeParams, 
         $scope.update();
       }
     }
-  }
+  };
 
   $scope.lessons = mvLesson.get({ _id: $routeParams.id });
 
@@ -85,6 +90,23 @@ angular.module('app').controller('LessonsCtrl', function ($scope, $routeParams, 
     });
   };
 
+  $scope.delete = function () {
+    var id = $scope.lesson_id;
+    mvLessonFactory.delete(id).then(function () {
+      mvNotifier.notify('Lesson removed!');
+      $scope.lessons.forEach(function (item, index) {
+        if (item._id === id) {
+          $scope.lessons.splice(index, 1);
+        }
+      });
+      $timeout(function () {
+        showPane();
+      });
+    }, function (reason) {
+      mvNotifier.error(reason);
+    });
+  };
+
   $q.race([
     $scope.lessons.$promise
   ]).then(function() { 
@@ -95,13 +117,7 @@ angular.module('app').controller('LessonsCtrl', function ($scope, $routeParams, 
     $timeout(function () {
       var $courseControlsLinks = $('#course-controls a');
 
-      if ($scope.lessons.length) {
-        $('#lessons-tab-list a:first').addClass('active');
-        $('.lesson').eq(0).addClass('active show');
-      } else {
-        $courseControlsLinks.eq(0).addClass('active');
-        $('#new-lesson-tab').addClass('active show');
-      }
+      showPane();
 
       $('#list-new-lesson-list').click(function () {
         $scope.$apply(function () {
@@ -118,5 +134,15 @@ angular.module('app').controller('LessonsCtrl', function ($scope, $routeParams, 
       });
     });
   });
+
+  function showPane () {
+    if ($scope.lessons.length) {
+      $('#lessons-tab-list a:first').addClass('active');
+      $('.lesson').eq(0).addClass('active show');
+    } else {
+      $('#course-controls a:first').addClass('active');
+      $('#new-lesson-tab').addClass('active show');
+    }
+  }
 
 });

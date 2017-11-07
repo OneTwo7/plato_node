@@ -23,6 +23,16 @@ angular.module('app').factory('mvLessonFactory', function ($q, $routeParams, mvL
         dfd.reject(res.data.reason);
       });
       return dfd.promise;
+    },
+    delete: function (lesson_id) {
+      var lesson = mvLesson.getOne({ _id: $routeParams.id, _lesson_id: lesson_id });
+      var dfd = $q.defer();
+      lesson.$delete({ _id: $routeParams.id, _lesson_id: lesson_id }).then(function () {
+        dfd.resolve();
+      }, function (res) {
+        dfd.reject(res.data.reason);
+      });
+      return dfd.promise;
     }
   };
 });

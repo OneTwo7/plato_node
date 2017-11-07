@@ -12,6 +12,11 @@ angular.module('app').factory('mvLesson', function ($resource) {
     update: {
       method: 'PUT',
       isArray: false
+    },
+    delete: {
+      method: 'DELETE',
+      isArray: false,
+      params: { _lesson_id: '@lesson_id' }
     }
   });
 

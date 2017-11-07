@@ -23,6 +23,8 @@ module.exports = function (app) {
 
   app.put('/api/courses/:id/lessons/:lesson_id', lessons.updateLesson);
 
+  app.delete('/api/courses/:id/lessons/:lesson_id', lessons.deleteLesson);
+
   app.all('/api/*', function (req, res) {
     res.sendStatus(404);
   });

@@ -46,3 +46,13 @@ exports.updateLesson = function (req, res) {
     });
   });
 };
+
+exports.deleteLesson = function (req, res) {
+  Lesson.remove({ _id: req.params.lesson_id }, function (err) {
+    if (err) {
+      res.status(400);
+      return res.send({ reason: err.toString() });
+    }
+    res.status(200).json(req.params.lesson_id);
+  });
+};
