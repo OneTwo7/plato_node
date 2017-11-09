@@ -1,4 +1,4 @@
-angular.module('app').controller('LessonsCtrl', function ($scope, $routeParams, $q, $timeout, $http, mvLesson, mvCachedCourses, mvLessonFactory, mvNotifier, mvIdentity) {
+angular.module('app').controller('LessonsCtrl', function ($scope, $routeParams, $q, $timeout, $http, mvLesson, mvCachedCourses, mvLessonFactory, mvNotifier, mvIdentity, mvLessonContent) {
   
   mvCachedCourses.query().$promise.then(function (collection) {
     collection.forEach(function (course) {
@@ -9,6 +9,8 @@ angular.module('app').controller('LessonsCtrl', function ($scope, $routeParams, 
   });
 
   $scope.mvIdentity = mvIdentity;
+
+  $scope.mvLessonContent = mvLessonContent;
 
   $scope.type = 'new';
 
@@ -61,7 +63,7 @@ angular.module('app').controller('LessonsCtrl', function ($scope, $routeParams, 
     $scope.formData.lesson_id = id;
     $scope.formData.title = target.title;
     $contentField.html(target.content);
-    recVenomize($contentField);
+    mvLessonContent.recVenomize($contentField);
     $('#list-edit-lesson-list').tab('show');
   };
 
@@ -83,6 +85,9 @@ angular.module('app').controller('LessonsCtrl', function ($scope, $routeParams, 
         }
       });
       $timeout(function () {
+        var $lesson = $('#list-' + lesson_id);
+        var content = lesson.content;
+        mvLessonContent.venomize($lesson, content);
         $('#list-edit-lesson-list').removeClass('active');
         $('a[href="#list-' + lesson_id + '"]').tab('show');
       });
@@ -297,7 +302,7 @@ angular.module('app').controller('LessonsCtrl', function ($scope, $routeParams, 
       });
 
       $('#code-btn').click(function () {
-        $contentField.append('<pre class="code-field" autocorrect="off" autocapitalize="off" spellcheck="false"><div></div></pre>');
+        $contentField.append('<pre class="code-field prettyprint" autocorrect="off" autocapitalize="off" spellcheck="false"><div></div></pre>');
       });
 
       $('#bash-btn').click(function () {
@@ -312,6 +317,9 @@ angular.module('app').controller('LessonsCtrl', function ($scope, $routeParams, 
 
   function showPane () {
     if ($scope.lessons.length) {
+      var $lesson = $('.lesson:first');
+      var content = $scope.lessons[0].content;
+      mvLessonContent.venomize($lesson, content);
       $('#lessons-tab-list a:first').tab('show');
     } else {
       if (mvIdentity.isAuthenticated() && mvIdentity.currentUser.isAdmin()) {
@@ -401,7 +409,7 @@ angular.module('app').controller('LessonsCtrl', function ($scope, $routeParams, 
     }
 
     var $contentField = $('#content-field');
-    recSanitize($contentField);
+    mvLessonContent.recSanitize($contentField);
 
     var lessonData = {
       course:  $scope.course._id,
@@ -412,34 +420,6 @@ angular.module('app').controller('LessonsCtrl', function ($scope, $routeParams, 
     $contentField.html('<div></div>');
 
     return lessonData;
-  }
-
-  function sanitizeInput (str) {
-    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  }
-
-  function venomizeInput (str) {
-    return str.replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>');
-  }
-
-  function recSanitize ($obj) {
-    $obj.get(0).childNodes.forEach(function (item) {
-      if (item.nodeType === 3 && item.nodeValue.trim().length !== 0) {
-        item.nodeValue = sanitizeInput(item.nodeValue);
-      } else {
-        recSanitize($(item));
-      }
-    });
-  }
-
-  function recVenomize ($obj) {
-    $obj.get(0).childNodes.forEach(function (item) {
-      if (item.nodeType === 3 && item.nodeValue.trim().length !== 0) {
-        item.nodeValue = venomizeInput(item.nodeValue);
-      } else {
-        recVenomize($(item));
-      }
-    });
   }
 
 });
