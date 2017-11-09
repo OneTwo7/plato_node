@@ -7,8 +7,39 @@
         .card-body
           .form-group
             input.form-control(name="title" type="text" placeholder="Title" ng-model="formData.title" required)
-          .form-group
-            textarea.form-control(name="content" placeholder="Content" ng-model="formData.content", required)
+          .form-group.lesson-content-input
+            label Content
+            .form-control#content-field(contenteditable="true")
+              div
+            #content-buttons
+              button.btn.btn-secondary#title-btn(type="button") Subtitle
+              button.btn.btn-secondary#ol-btn(type="button") ol
+              button.btn.btn-secondary#ul-btn(type="button") ul
+              button.btn.btn-secondary#link-btn(type="button") Link
+              button.btn.btn-secondary#bold-btn(type="button") B
+              button.btn.btn-secondary#cursive-btn(type="button") C
+            #field-buttons
+              button.btn.btn-dark#text-btn(type="button") Text
+              button.btn.btn-dark#code-btn(type="button") Code
+              button.btn.btn-dark#bash-btn(type="button") Bash
+              button.btn.btn-danger#clear-btn(type="button") Clear
           .form-group.lesson-controls
             button.btn.btn-primary(ng-click="formParams[type].action()", ng-disabled="newLessonForm.$invalid") {{ formParams[type].button }}
             button.btn.btn-secondary(ng-show="type === 'edit'" ng-click="cancelEdit()") Cancel
+
+<!-- Link Modal -->
+.modal.fade#link-modal(tabindex="-1" role="dialog" aria-labelledby="linkModalLabel" aria-hidden="true")
+  .modal-dialog(role="document")
+    .modal-content
+      .modal-header
+        h2.modal-title#linkModalLabel New Link
+        button.close(type="button" data-dismiss="modal" aria-label="Close")
+          span(aria-hidden="true") &times;
+      .modal-body
+        select.form-control#link-protocol
+          option(value="http://") http://
+          option(value="https://") https://
+        input.form-control#link-name(type="text")
+      .modal-footer
+        button.btn.btn-secondary(type="button" data-dismiss="modal") Close
+        button.btn.btn-primary#create-link-btn(type="button" data-dismiss="modal") Create

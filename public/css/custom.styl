@@ -65,6 +65,56 @@ pre
 .lesson-controls
   button
     margin-right: .5rem
+    
+#content-field
+  min-height: 5rem
+  margin-bottom: .5rem
+  > div {
+    min-height: 1.5rem
+    margin-bottom: 1rem
+  }
+  
+.lesson-content-input
+  button
+    margin-right: .25rem
+  #content-buttons, #field-buttons
+    display: inline-block
+  #content-buttons
+    margin-right: 1rem
+  #field-buttons
+    text-align: right
+    button
+      width: 5rem
+
+.bash-field, .code-field
+  margin: 1rem 0
+  padding: 1rem
+  border-radius: .5rem
+  min-height: 1.5rem
+  -moz-tab-size: 2;
+  -o-tab-size: 2;
+  tab-size: 2;
+  div {
+    min-height: 1.35rem
+  }
+  
+.bash-field
+  background-color: #313140
+  color: #4EF28C
+
+.code-field
+  background-color: #555
+  color: #f1f2f3
+  
+#link-modal
+  .modal-body
+    display: flex
+    .form-control
+      width: initial
+    select
+      flex-grow: 1
+    input
+      flex-grow: 9
 
 @media (max-width: 767px)
   .navbar-collapse

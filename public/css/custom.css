@@ -72,6 +72,64 @@ pre {
 .lesson-controls button {
   margin-right: 0.5rem;
 }
+#content-field {
+  min-height: 5rem;
+  margin-bottom: 0.5rem;
+}
+#content-field > div {
+  min-height: 1.5rem;
+  margin-bottom: 1rem;
+}
+.lesson-content-input button {
+  margin-right: 0.25rem;
+}
+.lesson-content-input #content-buttons,
+.lesson-content-input #field-buttons {
+  display: inline-block;
+}
+.lesson-content-input #content-buttons {
+  margin-right: 1rem;
+}
+.lesson-content-input #field-buttons {
+  text-align: right;
+}
+.lesson-content-input #field-buttons button {
+  width: 5rem;
+}
+.bash-field,
+.code-field {
+  margin: 1rem 0;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  min-height: 1.5rem;
+  -moz-tab-size: 2;
+  -o-tab-size: 2;
+  tab-size: 2;
+}
+.bash-field div,
+.code-field div {
+  min-height: 1.35rem;
+}
+.bash-field {
+  background-color: #313140;
+  color: #4ef28c;
+}
+.code-field {
+  background-color: #555;
+  color: #f1f2f3;
+}
+#link-modal .modal-body {
+  display: flex;
+}
+#link-modal .modal-body .form-control {
+  width: initial;
+}
+#link-modal .modal-body select {
+  flex-grow: 1;
+}
+#link-modal .modal-body input {
+  flex-grow: 9;
+}
 @media (max-width: 767px) {
   .navbar-collapse .form-inline input,
   .navbar-collapse .form-inline button {

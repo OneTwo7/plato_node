@@ -3,17 +3,16 @@
   .row
     .col-md-3
       .list-group#course-controls(role='tablist')
-        a.list-group-item.list-group-item-action#list-new-lesson-list(ng-show='mvIdentity.isAuthenticated() && mvIdentity.currentUser.isAdmin()' data-toggle='list' href='#new-lesson-tab' role='tab' aria-controls='new lesson form') New Lesson
-        a.list-group-item.list-group-item-action#list-edit-lesson-list(data-toggle='list' href='#edit-lesson-tab' ng-hide='true')
-        a.list-group-item.list-group-item-action#list-course-details-list( data-toggle='list' href='#details' role='tab' aria-controls='course details') Course Details
+        a.list-group-item.list-group-item-action#list-new-lesson-list(ng-show='mvIdentity.isAuthenticated() && mvIdentity.currentUser.isAdmin()' data-toggle='list' href='#lesson-form-tab' role='tab' aria-controls='new lesson form') New Lesson
+        a.list-group-item.list-group-item-action#list-edit-lesson-list(data-toggle='list' href='#lesson-form-tab' ng-hide='true')
+        a.list-group-item.list-group-item-action#list-course-details-list(data-toggle='list' href='#details' role='tab' aria-controls='course details') Course Details
+        a.list-group-item.list-group-item-action(href='/courses') Back
 
       .list-group#lessons-tab-list(role='tablist')
         a.list-group-item.list-group-item-action(ng-repeat='lesson in lessons' data-toggle="list" href="#list-{{ lesson._id }}" role="tab" aria-controls="{{ lesson.title }}" mv-lessons-tab-item) {{ lesson.title }}
     .col-md-9
       .tab-content#lessons-tabs
-        .tab-pane.fade#new-lesson-tab(role='tabpanel' aria-labelledby='list-new-lesson-list')
-          div(ng-include='"/partials/lessons/new-lesson"')
-        .tab-pane.fade#edit-lesson-tab(role='tabpanel' aria-labelledby='list-edit-lesson-list')
+        .tab-pane.fade#lesson-form-tab(role='tabpanel' aria-labelledby='list-new-lesson-list')
           div(ng-include='"/partials/lessons/new-lesson"')
         .tab-pane.fade#details(role='tabpanel' aria-labelledby='list-course-details-list')
           div(ng-include='"/partials/courses/course-details"')
