@@ -14,7 +14,7 @@ angular.module('app').directive('mvLessonsTabItem', function() {
             break;
           }
         }
-        scope.mvLessonContent.venomize($lesson, content);
+        scope.mvLessonContent.insertContent($lesson, content);
       }
       $courseControlsLinks.removeClass('active');
       $(this).tab('show');

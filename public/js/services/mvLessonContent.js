@@ -1,37 +1,8 @@
 angular.module('app').factory('mvLessonContent', function (mvIdentity) {
 
-  function sanitizeInput (str) {
-    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  }
-
-  function venomizeInput (str) {
-    return str.replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>');
-  }
-
-  function recSanitize ($obj) {
-    $obj.get(0).childNodes.forEach(function (item) {
-      if (item.nodeType === 3 && item.nodeValue.trim().length !== 0) {
-        item.nodeValue = sanitizeInput(item.nodeValue);
-      } else {
-        recSanitize($(item));
-      }
-    });
-  }
-
-  function recVenomize ($obj) {
-    $obj.get(0).childNodes.forEach(function (item) {
-      if (item.nodeType === 3 && item.nodeValue.trim().length !== 0) {
-        item.nodeValue = venomizeInput(item.nodeValue);
-      } else {
-        recVenomize($(item));
-      }
-    });
-  }
-
-  function venomize ($lesson, html) {
+  function insertContent ($lesson, html) {
     var $content = $lesson.find('.lesson-content').eq(0);
     $content.html(html);
-    //recVenomize($content);
     $lesson.addClass('prepared');
     PR.prettyPrint();
   }
@@ -40,7 +11,7 @@ angular.module('app').factory('mvLessonContent', function (mvIdentity) {
     if ($scope.lessons.length) {
       var $lesson = $('.lesson:first');
       var content = $scope.lessons[0].content;
-      venomize($lesson, content);
+      insertContent($lesson, content);
       $('#lessons-tab-list a:first').tab('show');
     } else {
       if (mvIdentity.isAuthenticated() && mvIdentity.currentUser.isAdmin()) {
@@ -120,14 +91,8 @@ angular.module('app').factory('mvLessonContent', function (mvIdentity) {
   }
 
   return {
-    venomize: function ($lesson, html) {
-      venomize($lesson, html);
-    },
-    recSanitize: function ($obj) {
-      recSanitize($obj);
-    },
-    recVenomize: function ($obj) {
-      recVenomize($obj);
+    insertContent: function ($lesson, html) {
+      insertContent($lesson, html);
     },
     prepareView: function ($scope) {
       var $courseControlsLinks = $('#course-controls a');

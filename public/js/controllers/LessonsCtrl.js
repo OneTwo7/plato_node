@@ -65,7 +65,6 @@ angular.module('app').controller('LessonsCtrl', function ($scope, $routeParams, 
     $scope.formData.lesson_id = id;
     $scope.formData.title = target.title;
     $contentField.html(target.content);
-    mvLessonContent.recVenomize($contentField);
     $('#list-edit-lesson-list').tab('show');
   };
 
@@ -89,7 +88,7 @@ angular.module('app').controller('LessonsCtrl', function ($scope, $routeParams, 
       $timeout(function () {
         var $lesson = $('#list-' + lesson_id);
         var content = lesson.content;
-        mvLessonContent.venomize($lesson, content);
+        mvLessonContent.insertContent($lesson, content);
         $('#list-edit-lesson-list').removeClass('active');
         $('a[href="#list-' + lesson_id + '"]').tab('show');
       });
@@ -162,7 +161,6 @@ angular.module('app').controller('LessonsCtrl', function ($scope, $routeParams, 
     }
 
     var $contentField = $('#content-field');
-    //mvLessonContent.recSanitize($contentField);
 
     var lessonData = {
       course:  $scope.course._id,
