@@ -103,11 +103,13 @@ pre {
 #course-controls {
   margin-bottom: 3rem;
 }
-.lesson .card-footer {
+.lesson .card-footer,
+#details .card-footer {
   display: flex;
   justify-content: flex-end;
 }
-.lesson .card-footer button {
+.lesson .card-footer button,
+#details .card-footer button {
   min-width: 5rem;
   margin-left: 0.5rem;
 }

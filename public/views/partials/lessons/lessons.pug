@@ -19,7 +19,8 @@
 
         .lesson.tab-pane.fade(ng-repeat='lesson in lessons' id="list-{{ lesson._id }}" role="tabpanel")
           .card.border-dark.mb-3
-            .card-header.text-center.text-white.bg-dark {{ lesson.title }}
+            .card-header.text-center.text-white.bg-dark
+              h2 {{ lesson.title }}
             .card-body
               pre.lesson-content
             .card-footer(ng-show='mvIdentity.isAuthenticated() && mvIdentity.currentUser.isAdmin()')

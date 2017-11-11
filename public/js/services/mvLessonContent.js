@@ -2,6 +2,7 @@ angular.module('app').factory('mvLessonContent', function (mvIdentity) {
 
   function insertContent ($lesson, html) {
     var $content = $lesson.find('.lesson-content').eq(0);
+    html = html.replace(/<\/div><div>/g, '\n');
     $content.html(html);
     $lesson.addClass('prepared');
     PR.prettyPrint();

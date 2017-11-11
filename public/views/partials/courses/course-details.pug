@@ -1,10 +1,13 @@
-.container
-  .row
-    .col-md-6
-      p(ng-show='course.featured') Featured
-      p Published on {{ course.published | date }}
-    .col-md-6
-      .card.bg-light.border-secondary
-        .card-header.text-center.bg-secondary Tags
-        .card-body
-          div(ng-repeat='tag in course.tags') {{ tag }}
+.card.border-dark.mb-3
+  .card-header.text-center.text-white.bg-dark
+    h2 Course Details
+  .card-body
+    p(ng-show='course.featured') Featured
+    p(ng-show='!!course.published') Published on {{ course.published | date }}
+    table.table.table-striped.table-sm
+      thead
+        tr
+          th Tags
+        tbody
+          tr(ng-repeat='tag in course.tags')
+            td {{ tag }}

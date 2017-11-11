@@ -1,35 +1,15 @@
-var auth = require('./auth');
-var users = require('../app/controllers/users');
-var courses = require('../app/controllers/courses');
-var lessons = require('../app/controllers/lessons');
+var auth         = require('./auth');
+var userRoutes   = require('./routes/users');
+var courseRoutes = require('./routes/courses');
+var lessonRoutes = require('./routes/lessons');
 
 module.exports = function (app) {
 
-  app.get('/api/users', auth.requiresRole('admin'), users.getUsers);
+  app.use('/api/users', userRoutes);
 
-  app.post('/api/users', users.createUser);
+  app.use('/api/courses', courseRoutes);
 
-  app.put('/api/users', users.updateUser);
-
-  app.get('/api/courses', courses.getCourses);
-
-  app.post('/api/courses', courses.createCourse);
-
-  app.put('/api/courses/:id', courses.updateCourse);
-
-  app.delete('/api/courses/:id', courses.deleteCourse);
-
-  app.get('/api/courses/:id', courses.getCourseById);
-
-  app.get('/api/courses/:id/lessons', lessons.getLessonsByCourseId);
-
-  app.get('/api/courses/:id/lessons/:lesson_id', lessons.getLessonById);
-
-  app.post('/api/courses/:id/lessons', auth.requiresRole('admin'), lessons.createLesson);
-
-  app.put('/api/courses/:id/lessons/:lesson_id', auth.requiresRole('admin'), lessons.updateLesson);
-
-  app.delete('/api/courses/:id/lessons/:lesson_id', auth.requiresRole('admin'), lessons.deleteLesson);
+  app.use('/api/courses/:id/lessons', lessonRoutes);
 
   app.all('/api/*', function (req, res) {
     res.sendStatus(404);

@@ -1,10 +1,10 @@
-angular.module('app').factory('mvIdentity', function ($window, $sessionStorage, mvUser) {
+angular.module('app').factory('mvIdentity', function ($window, $localStorage, mvUser) {
   
   var currentUser;
 
-  if (!!$sessionStorage.currentUser) {
+  if (!!$localStorage.currentUser) {
     currentUser = new mvUser();
-    angular.extend(currentUser, $sessionStorage.currentUser);
+    angular.extend(currentUser, $localStorage.currentUser);
   }
 
   return {
@@ -12,11 +12,11 @@ angular.module('app').factory('mvIdentity', function ($window, $sessionStorage, 
     setUser: function (user) {
       delete user.password;
       delete user.salt
-      $sessionStorage.currentUser = user;
+      $localStorage.currentUser = user;
       this.currentUser = user;
     },
     removeUser: function () {
-      delete $sessionStorage.currentUser;
+      delete $localStorage.currentUser;
       this.currentUser = undefined;
     },
     isAuthenticated: function () {

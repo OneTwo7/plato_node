@@ -1,4 +1,4 @@
-angular.module('app').controller('CourseListCtrl', function ($scope, mvCachedCourses, mvCourseFactory, mvNotifier) {
+angular.module('app').controller('CourseListCtrl', function ($scope, mvCachedCourses, mvCourseFactory, mvNotifier, mvIdentity) {
   
   $scope.courses = mvCachedCourses.query();
 
@@ -8,6 +8,8 @@ angular.module('app').controller('CourseListCtrl', function ($scope, mvCachedCou
   ];
 
   $scope.sortOrder = $scope.sortOptions[0].value;
+
+  $scope.mvIdentity = mvIdentity;
 
   $scope.formData = {};
 

@@ -1,7 +1,7 @@
 .container
   .row
     .col-md-10.offset-md-1
-      div(ng-include='"partials/courses/form"')
+      div(ng-show='mvIdentity.isAuthenticated() && mvIdentity.currentUser.isAdmin()' ng-include='"partials/courses/form"')
       form.form-inline.float-right#course-list-search-form
         input.form-control(ng-model='searchText', placeholder='filter')
         select.form-control(ng-model='sortOrder', ng-options='item.value as item.text for item in sortOptions')
@@ -15,7 +15,7 @@
             td
               a(href='/courses/{{ course._id }}') {{ course.title }}
             td.date {{ course.published | date }}
-            td
+            td(ng-show='mvIdentity.isAuthenticated() && mvIdentity.currentUser.isAdmin()')
               button.btn.btn-link(type='button' ng-click='edit(course._id)') edit
             td
               button.btn.btn-link(type='button' ng-click='confirm(course._id)') delete
