@@ -115,9 +115,16 @@ pre {
   min-height: 5rem;
   margin-bottom: 0.5rem;
 }
-#content-field > div {
+#content-field > div,
+.lesson-content > div {
+  text-indent: 1.5rem;
   min-height: 1.5rem;
   margin-bottom: 1rem;
+}
+#content-field > div h3,
+.lesson-content > div h3 {
+  text-align: center;
+  margin-right: 1.5rem;
 }
 .lesson-content-input button {
   margin-right: 0.25rem;

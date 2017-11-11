@@ -8,9 +8,9 @@ app.locals.basedir = __dirname + '/public';
 
 var config = require('./config/config')[env];
 
-require('./config/express')(app, config);
-
 require('./config/mongoose')(config);
+
+require('./config/express')(app, config);
 
 require('./config/passport')();
 

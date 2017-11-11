@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var User = mongoose.model('User');
+var ObjectId = mongoose.Types.ObjectId;
 
 module.exports = function () {
 

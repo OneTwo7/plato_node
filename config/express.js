@@ -5,6 +5,8 @@ var stylus = require('stylus');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var passport = require('passport');
+var MongoStore = require('connect-mongo')(session);
+var mongoose = require('mongoose');
 
 module.exports = function (app, config) {
 
@@ -21,7 +23,8 @@ module.exports = function (app, config) {
   app.use(session({
     secret: 'Divine Unicorn',
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: true,
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
   }));
   app.use(passport.initialize());
   app.use(passport.session());

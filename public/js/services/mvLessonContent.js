@@ -31,7 +31,7 @@ angular.module('app').factory('mvLessonContent', function () {
   function venomize ($lesson, html) {
     var $content = $lesson.find('.lesson-content').eq(0);
     $content.html(html);
-    recVenomize($content);
+    //recVenomize($content);
     $lesson.addClass('prepared');
     PR.prettyPrint();
   }

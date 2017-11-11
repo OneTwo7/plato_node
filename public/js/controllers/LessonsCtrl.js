@@ -160,7 +160,7 @@ angular.module('app').controller('LessonsCtrl', function ($scope, $routeParams, 
     }
 
     var $contentField = $('#content-field');
-    mvLessonContent.recSanitize($contentField);
+    //mvLessonContent.recSanitize($contentField);
 
     var lessonData = {
       course:  $scope.course._id,
