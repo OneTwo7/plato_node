@@ -8,10 +8,10 @@ angular.module('app').factory('mvLessonContent', function (mvIdentity) {
     PR.prettyPrint();
   }
 
-  function showPane ($scope) {
-    if ($scope.lessons.length) {
+  function showPane (lessons) {
+    if (lessons.length) {
       var $lesson = $('.lesson:first');
-      var content = $scope.lessons[0].content;
+      var content = lessons[0].content;
       insertContent($lesson, content);
       $('#lessons-tab-list a:first').tab('show');
     } else {
@@ -95,11 +95,14 @@ angular.module('app').factory('mvLessonContent', function (mvIdentity) {
     insertContent: function ($lesson, html) {
       insertContent($lesson, html);
     },
+    showPane: function (lessons) {
+      showPane(lessons);
+    },
     prepareView: function ($scope) {
       var $courseControlsLinks = $('#course-controls a');
       var $contentField = $('#content-field');
 
-      showPane($scope);
+      showPane($scope.lessons);
 
       $('#list-new-lesson-list').click(function () {
         $scope.$apply(function () {
@@ -145,10 +148,8 @@ angular.module('app').factory('mvLessonContent', function (mvIdentity) {
           var $this = $(this);
           if ($this.find('br').length) {
             $this.children('br').replaceWith('<div></div>');
-            if (e.keyCode === 13 || e.keyCode === 46) {
-              $('.code-field').children('br').replaceWith('<div></div>');
-              $('.bash-field').children('br').replaceWith('<div></div>');
-            }
+            $('.code-field').children('br').replaceWith('<div></div>');
+            $('.bash-field').children('br').replaceWith('<div></div>');
           }
           if (e.keyCode === 8 && $this.text().length === 0) {
             $this.html('<div></div>');
@@ -172,44 +173,64 @@ angular.module('app').factory('mvLessonContent', function (mvIdentity) {
         if (!$field.hasClass('code-field') && !$field.hasClass('bash-field')) {
           return;
         }
-        if (e.keyCode === 8 && sel.anchorOffset === 0) {
-          if ($div.text().length !== 0 && $div.is('div:first-child')) {
-            e.preventDefault();
+        // handle backspace
+        if (e.keyCode === 8) {
+          if (sel.anchorOffset === 0) {
+            if ($div.text().length !== 0 && $div.is('div:first-child')) {
+              e.preventDefault();
+            }
           }
+          return;
         }
+        // handle tab
         if (e.keyCode === 9) {
           document.execCommand('insertHTML', false, '\t');
           e.preventDefault();
+          return;
         }
-        if (e.keyCode === 13 && $field.hasClass('code-field')) {
-          var text = $div.text();
+        // handle enter
+        var text = $div.text();
+        var offset = sel.anchorOffset;
+        var newLineText;
+        var newLineOffset;
+        if ($field.hasClass('code-field')) {
           if (text.length >= 1 && text.slice(0, 1) === '\t') {
-            var offset = sel.anchorOffset;
             var tabs = 1;
             while (text.slice(tabs, tabs + 1) === '\t') {
               tabs++;
             }
-            if (text.length !== offset && offset > tabs) {
-              return;
-            }
             var $newDiv = $('<div></div>');
-            if (offset <= tabs) {
+            if (offset < tabs) {
               tabs = offset;
             }
-            $newDiv.text(new Array(tabs + 1).join('\t'));
-            $div.after($newDiv);
+            newLineText = new Array(tabs + 1).join('\t');
             if (text.length !== offset) {
-              $div.text($div.text().slice(0, tabs));
-              $newDiv.text($newDiv.text() + text.slice(tabs));
+              $div.text($div.text().slice(0, offset));
+              newLineText += text.slice(offset);
             }
-            var range = document.createRange();
-            range.setStart($newDiv.get(0).childNodes[0], tabs);
-            range.collapse(true);
-            sel.removeAllRanges();
-            sel.addRange(range);
-            e.preventDefault();
+            newLineOffset = tabs;
+          } else {
+            return;
+          }
+        } else {
+          var idx = text.indexOf('$ ');
+          if (~idx && text.length === offset) {
+            newLineText = text.slice(0, idx + 2);
+            newLineOffset = newLineText.length;
+          } else {
+            return;
           }
         }
+        // new line
+        var $newDiv = $('<div></div>');
+        $newDiv.text(newLineText);
+        $div.after($newDiv);
+        var range = document.createRange();
+        range.setStart($newDiv.get(0).childNodes[0], newLineOffset);
+        range.collapse(true);
+        sel.removeAllRanges();
+        sel.addRange(range);
+        e.preventDefault();
       });
 
       /*

@@ -1,4 +1,5 @@
 angular.module('app').factory('mvCourseFactory', function ($q, $routeParams, $timeout, mvCourse, mvCachedCourses) {
+  
   function getCourse (course_id) {
     var result;
     var courses = mvCachedCourses.query()
@@ -48,4 +49,5 @@ angular.module('app').factory('mvCourseFactory', function ($q, $routeParams, $ti
       return dfd.promise;
     }
   };
+  
 });

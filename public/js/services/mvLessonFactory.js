@@ -1,4 +1,18 @@
-angular.module('app').factory('mvLessonFactory', function ($q, $routeParams, mvLesson) {
+angular.module('app').factory('mvLessonFactory', function ($q, $routeParams, mvLesson, mvCachedLessons) {
+  
+  function getLesson (course_id, lesson_id) {
+    var result;
+    var lessons = mvCachedLessons.query(course_id);
+    var length = lessons.length;
+    for (var i = 0; i < length; i++) {
+      if (lessons[i]._id === lesson_id) {
+        result = lessons[i];
+        break;
+      }
+    }
+    return result;
+  }
+
   return {
     create: function (newLessonData) {
       var newLesson = new mvLesson(newLessonData);
@@ -13,7 +27,7 @@ angular.module('app').factory('mvLessonFactory', function ($q, $routeParams, mvL
     update: function (lessonData) {
       var lesson_id = lessonData.lesson_id;
       delete lessonData.lesson_id;
-      var lesson = mvLesson.getOne({ _id: $routeParams.id, _lesson_id: lesson_id });
+      var lesson = getLesson($routeParams.id, lesson_id);
       var dfd = $q.defer();
       var clone = angular.copy(lesson);
       angular.extend(clone, lessonData);
@@ -25,7 +39,7 @@ angular.module('app').factory('mvLessonFactory', function ($q, $routeParams, mvL
       return dfd.promise;
     },
     delete: function (lesson_id) {
-      var lesson = mvLesson.getOne({ _id: $routeParams.id, _lesson_id: lesson_id });
+      var lesson = getLesson($routeParams.id, lesson_id);
       var dfd = $q.defer();
       lesson.$delete({ _id: $routeParams.id, _lesson_id: lesson_id }).then(function () {
         dfd.resolve();
@@ -35,4 +49,5 @@ angular.module('app').factory('mvLessonFactory', function ($q, $routeParams, mvL
       return dfd.promise;
     }
   };
+
 });

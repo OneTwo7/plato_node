@@ -1,4 +1,4 @@
-angular.module('app').controller('LessonsCtrl', function ($scope, $routeParams, $q, $timeout, $http, mvLesson, mvCachedCourses, mvLessonFactory, mvNotifier, mvIdentity, mvLessonContent) {
+angular.module('app').controller('LessonsCtrl', function ($scope, $routeParams, $q, $timeout, $http, mvLesson, mvCachedCourses, mvLessonFactory, mvNotifier, mvIdentity, mvLessonContent, mvCachedLessons) {
   
   mvCachedCourses.query().$promise.then(function (collection) {
     collection.forEach(function (course) {
@@ -7,6 +7,8 @@ angular.module('app').controller('LessonsCtrl', function ($scope, $routeParams, 
       }
     });
   });
+
+  $scope.lessons = mvCachedLessons.query($routeParams.id);
 
   $scope.mvIdentity = mvIdentity;
 
@@ -34,8 +36,6 @@ angular.module('app').controller('LessonsCtrl', function ($scope, $routeParams, 
   };
 
   $scope.modalText = 'Are you sure you want to delete this lesson?';
-
-  $scope.lessons = mvLesson.get({ _id: $routeParams.id });
 
   $scope.create = function () {
     var newLessonData = prepareLessonData();
@@ -101,13 +101,14 @@ angular.module('app').controller('LessonsCtrl', function ($scope, $routeParams, 
     var id = $scope.lesson_id;
     mvLessonFactory.delete(id).then(function () {
       mvNotifier.notify('Lesson removed!');
-      $scope.lessons.forEach(function (item, index) {
-        if (item._id === id) {
-          $scope.lessons.splice(index, 1);
+      var length = $scope.lessons.length;
+      for (var i = 0; i < length; i++) {
+        if (!$scope.lessons[i]._id) {
+          $scope.lessons.splice(i, 1);
         }
-      });
+      }
       $timeout(function () {
-        showPane();
+        mvLessonContent.showPane($scope.lessons);
       });
     }, function (reason) {
       mvNotifier.error(reason);
