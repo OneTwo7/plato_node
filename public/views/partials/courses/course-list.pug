@@ -1,14 +1,23 @@
 .container
-  form.form-inline.float-right
-    input.form-control(ng-model='searchText', placeholder='filter')
-    select.form-control(ng-model='sortOrder', ng-options='item.value as item.text for item in sortOptions')
-  table.table.table-hover.table-striped.table-sm
-    thead
-      tr
-        th Title
-        th Publish Date
-    tbody
-      tr(ng-repeat='course in courses | filter:searchText | orderBy:sortOrder')
-        td
-          a(href='/courses/{{ course._id }}') {{ course.title }}
-        td {{ course.published | date }}
+  .row
+    .col-md-10.offset-md-1
+      div(ng-include='"partials/courses/form"')
+      form.form-inline.float-right#course-list-search-form
+        input.form-control(ng-model='searchText', placeholder='filter')
+        select.form-control(ng-model='sortOrder', ng-options='item.value as item.text for item in sortOptions')
+      table.table.table-hover.table-striped.table-sm.course-list-table
+        thead
+          tr
+            th Title
+            th.date Publish Date
+        tbody
+          tr(ng-repeat='course in courses | filter:searchText | orderBy:sortOrder')
+            td
+              a(href='/courses/{{ course._id }}') {{ course.title }}
+            td.date {{ course.published | date }}
+            td
+              button.btn.btn-link(type='button' ng-click='edit(course._id)') edit
+            td
+              button.btn.btn-link(type='button' ng-click='confirm(course._id)') delete
+
+div(ng-include='"/partials/messages/delete-modal"')

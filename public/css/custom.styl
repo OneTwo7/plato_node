@@ -16,12 +16,15 @@
 .content .form-inline
   margin-bottom: 1rem
   select
-    margin-left: 10px
+    margin-left: .5rem
 
 footer
   border-top: 1px solid #343a40
   padding: 1rem
   margin-top: 1rem
+  
+button
+  cursor: pointer
 
 .toast-top-right
   top: 4rem
@@ -123,6 +126,18 @@ pre
       flex-grow: 1
     input
       flex-grow: 9
+      
+#course-form-card
+  margin-bottom: 1rem
+  .course-controls
+    margin-bottom: 0
+    button:nth-child(2)
+      margin-left: .5rem
+    
+.course-list-table
+  .btn-link
+    border: none
+    padding: 0
 
 @media (max-width: 767px)
   .navbar-collapse
@@ -130,3 +145,12 @@ pre
       input, button
         margin-left: 0
         margin-bottom: .5rem
+        
+  #course-list-search-form
+    select
+      margin-left: 0
+      margin-top: .5rem
+      
+  .course-list-table
+    .date
+      display: none

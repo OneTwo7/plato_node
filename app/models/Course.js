@@ -3,8 +3,8 @@ var Schema   = mongoose.Schema;
 
 var courseSchema = Schema({
   title: { type: String, require: '{PATH} is required' },
-  published: { type: Date, required: '{PATH} is required' },
-  featured: { type: Boolean, required: '{PATH} is required' },
+  published: { type: Date },
+  featured: { type: Boolean, default: false },
   lessons: [{ type: Schema.Types.ObjectId, ref: 'Lesson' }],
   tags: [String]
 });

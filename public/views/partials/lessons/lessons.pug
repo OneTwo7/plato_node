@@ -26,15 +26,4 @@
               button.btn.btn-primary(ng-click='edit(lesson._id)' type='button') Edit
               button.btn.btn-danger(ng-click='confirm(lesson._id)' type='button') Delete
 
-.modal.fade#delete-modal(tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true")
-  .modal-dialog(role="document")
-    .modal-content
-      .modal-header
-        h3.modal-title#deleteModalLabel Confirmation
-        button.close(type="button" data-dismiss="modal" aria-label="Close")
-          span(aria-hidden="true") &times;
-      .modal-body
-        p Are you sure you want to delete this lesson?
-      .modal-footer
-        button.btn.btn-secondary(type="button" data-dismiss="modal") Close
-        button.btn.btn-primary(ng-click="delete()" type="button" data-dismiss="modal") Yes
+div(ng-include='"/partials/messages/delete-modal"')

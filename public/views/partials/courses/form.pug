@@ -1,0 +1,18 @@
+.card.bg-light#course-form-card
+  form.form-horizontal(name="courseForm")
+    fieldset
+      .card-body
+        .form-group
+          input.form-control(name="title" type="text" placeholder="Title" ng-model="formData.title")
+        .form-group
+          input.form-control(name="tags" type="text" placeholder="Tags" ng-model="formData.tags" ng-list=", ")
+        .form-group(ng-hide="buttonText === 'Create'")
+          label
+            input(type="checkbox" ng-model="formData.published" value="published")
+            span Publish
+          label
+            input(type="checkbox" ng-model="formData.featured" value="featured")
+            span Featured
+        .form-group.course-controls
+          button.btn.btn-primary(ng-click="action()", ng-disabled="!formData.title.length || hasDuplicates(formData.tags)") {{ buttonText }}
+          button.btn.btn-secondary(ng-hide="buttonText === 'Create'" ng-click="cancel()") Cancel

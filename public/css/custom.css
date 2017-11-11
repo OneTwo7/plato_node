@@ -59,12 +59,15 @@ pre.code-field.prettyprint .dec {
   margin-bottom: 1rem;
 }
 .content .form-inline select {
-  margin-left: 10px;
+  margin-left: 0.5rem;
 }
 footer {
   border-top: 1px solid #343a40;
   padding: 1rem;
   margin-top: 1rem;
+}
+button {
+  cursor: pointer;
 }
 .toast-top-right {
   top: 4rem;
@@ -177,10 +180,30 @@ pre {
 #link-modal .modal-body input {
   flex-grow: 9;
 }
+#course-form-card {
+  margin-bottom: 1rem;
+}
+#course-form-card .course-controls {
+  margin-bottom: 0;
+}
+#course-form-card .course-controls button:nth-child(2) {
+  margin-left: 0.5rem;
+}
+.course-list-table .btn-link {
+  border: none;
+  padding: 0;
+}
 @media (max-width: 767px) {
   .navbar-collapse .form-inline input,
   .navbar-collapse .form-inline button {
     margin-left: 0;
     margin-bottom: 0.5rem;
+  }
+  #course-list-search-form select {
+    margin-left: 0;
+    margin-top: 0.5rem;
+  }
+  .course-list-table .date {
+    display: none;
   }
 }

@@ -1,4 +1,4 @@
-angular.module('app').factory('mvLessonContent', function () {
+angular.module('app').factory('mvLessonContent', function (mvIdentity) {
 
   function sanitizeInput (str) {
     return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');

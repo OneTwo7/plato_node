@@ -13,6 +13,12 @@ module.exports = function (app) {
 
   app.get('/api/courses', courses.getCourses);
 
+  app.post('/api/courses', courses.createCourse);
+
+  app.put('/api/courses/:id', courses.updateCourse);
+
+  app.delete('/api/courses/:id', courses.deleteCourse);
+
   app.get('/api/courses/:id', courses.getCourseById);
 
   app.get('/api/courses/:id/lessons', lessons.getLessonsByCourseId);
