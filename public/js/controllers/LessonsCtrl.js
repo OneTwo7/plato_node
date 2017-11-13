@@ -1,4 +1,4 @@
-angular.module('app').controller('LessonsCtrl', function ($scope, $routeParams, $q, $timeout, $http, mvLesson, mvCachedCourses, mvLessonFactory, mvNotifier, mvIdentity, mvLessonContent, mvCachedLessons) {
+angular.module('app').controller('LessonsCtrl', function ($scope, $routeParams, $q, $timeout, mvCachedCourses, mvLessonFactory, mvNotifier, mvIdentity, mvLessonContent, mvCachedLessons) {
   
   mvCachedCourses.query().$promise.then(function (collection) {
     collection.forEach(function (course) {
@@ -123,12 +123,6 @@ angular.module('app').controller('LessonsCtrl', function ($scope, $routeParams, 
   $scope.cancelEdit = function () {
     $('#list-edit-lesson-list').removeClass('active');
     $('#lessons-tab-list .active').removeClass('active').tab('show');
-  };
-
-  $scope.getPartial = function () {
-    $http.get('/partials/scripts').then(function (data) {
-      console.log(data.data);
-    });
   };
 
   /*

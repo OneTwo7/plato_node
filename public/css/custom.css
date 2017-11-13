@@ -191,9 +191,23 @@ pre {
 #course-form-card .course-controls button:nth-child(2) {
   margin-left: 0.5rem;
 }
+#course-links {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
 .course-list-table .btn-link {
   border: none;
   padding: 0;
+}
+.new-course {
+  display: flex;
+  justify-content: space-between;
+}
+@media (min-width: 576px) {
+  #course-links {
+    width: auto;
+  }
 }
 @media (max-width: 767px) {
   .navbar-collapse .form-inline input,
@@ -205,7 +219,15 @@ pre {
     margin-left: 0;
     margin-top: 0.5rem;
   }
-  .course-list-table .date {
-    display: none;
+  #lesson-panes {
+    margin-top: 1rem;
+  }
+  .lesson-content-input #content-buttons,
+  .lesson-content-input #field-buttons {
+    text-align: center;
+  }
+  .lesson-content-input #content-buttons button,
+  .lesson-content-input #field-buttons button {
+    margin: 0.25rem;
   }
 }

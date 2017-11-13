@@ -3,21 +3,24 @@
     .col-md-10.offset-md-1
       div(ng-show='mvIdentity.isAuthenticated() && mvIdentity.currentUser.isAdmin()' ng-include='"partials/courses/form"')
       form.form-inline.float-right#course-list-search-form
+        div#course-links(ng-show='mvIdentity.isAuthenticated() && mvIdentity.currentUser.isAdmin()')
+          button.btn.btn-link(type='button' ng-click='all()') all
+          button.btn.btn-link(type='button' ng-click='featured()') featured
+          button.btn.btn-link(type='button' ng-click='unpublished()') unpublished
         input.form-control(ng-model='searchText', placeholder='filter')
         select.form-control(ng-model='sortOrder', ng-options='item.value as item.text for item in sortOptions')
       table.table.table-hover.table-striped.table-sm.course-list-table
         thead
           tr
             th Title
-            th.date Publish Date
+            th Publish Date
         tbody
           tr(ng-repeat='course in courses | filter:searchText | orderBy:sortOrder')
             td
               a(href='/courses/{{ course._id }}') {{ course.title }}
-            td.date {{ course.published | date }}
+            td {{ course.published | date }}
             td(ng-show='mvIdentity.isAuthenticated() && mvIdentity.currentUser.isAdmin()')
               button.btn.btn-link(type='button' ng-click='edit(course._id)') edit
-            td
               button.btn.btn-link(type='button' ng-click='confirm(course._id)') delete
 
 div(ng-include='"/partials/messages/delete-modal"')

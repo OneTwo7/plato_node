@@ -1,10 +1,15 @@
-angular.module('app').controller('CourseListCtrl', function ($scope, mvCachedCourses, mvCourseFactory, mvNotifier, mvIdentity) {
+angular.module('app').controller('CourseListCtrl', function ($scope, $http, mvCachedCourses, mvCourseFactory, mvNotifier, mvIdentity) {
   
   $scope.courses = mvCachedCourses.query();
 
   $scope.sortOptions = [
     { value: 'title', text: 'Sort by Title' },
     { value: 'published', text: 'Sort by Publish Date' }
+  ];
+
+  $scope.featuredOptions = [
+    { value: '', text: 'All' },
+    { value: '{featured:true}', text: 'Featured' }
   ];
 
   $scope.sortOrder = $scope.sortOptions[0].value;
@@ -70,8 +75,29 @@ angular.module('app').controller('CourseListCtrl', function ($scope, mvCachedCou
   }
 
   $scope.hasDuplicates = function (array) {
-    return (new Set(array)).size !== array.length;
+    return array ? (new Set(array)).size !== array.length : false;
   };
+
+  $scope.all = function () {
+    $scope.courses = mvCachedCourses.query();
+  };
+
+  $scope.featured = function () {
+    var courses = [];
+    $scope.courses = mvCachedCourses.query();
+    $scope.courses.forEach(function (course) {
+      if (course.featured) {
+        courses.push(course);
+      }
+    });
+    $scope.courses = courses;
+  };
+
+  $scope.unpublished = function () {
+    $http.get('/api/courses/unpublished').then(function (data) {
+      $scope.courses = data.data;
+    });
+  }
 
   function create () {
     var courseData = {

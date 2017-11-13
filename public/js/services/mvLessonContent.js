@@ -1,4 +1,4 @@
-angular.module('app').factory('mvLessonContent', function (mvIdentity) {
+angular.module('app').factory('mvLessonContent', function (mvIdentity, mvNotifier) {
 
   function insertContent ($lesson, html) {
     var $content = $lesson.find('.lesson-content').eq(0);
@@ -30,10 +30,11 @@ angular.module('app').factory('mvLessonContent', function (mvIdentity) {
   function addElement (el) {
     var element = '';
     var sel = getSelectedText();
+    if (sel === null) {
+      return;
+    }
     if (el === 'ol' || el === 'ul') {
-      if (sel !== null) {
-        element = '<' + el + '><li></li></' + el + '>';
-      }
+      element = '<' + el + '><li>' + sel + '</li></' + el + '>';
     } else {
       if (sel) {
         element = '<' + el + '>' + sel + '</' + el + '>';
@@ -101,6 +102,7 @@ angular.module('app').factory('mvLessonContent', function (mvIdentity) {
     prepareView: function ($scope) {
       var $courseControlsLinks = $('#course-controls a');
       var $contentField = $('#content-field');
+      var $lessonTabLists = $('#lesson-tab-lists');
 
       showPane($scope.lessons);
 

@@ -32,8 +32,7 @@ module.exports = function (app, config) {
     src: config.rootPath + '/public',
     compile: compile
   }));
-  app.use('/styles', express.static(config.rootPath + '/node_modules'));
-  app.use('/scripts', express.static(config.rootPath + '/node_modules'));
+  app.use('/vendor', express.static(config.rootPath + '/node_modules'));
   app.use(express.static(config.rootPath + '/public'));
 
 };

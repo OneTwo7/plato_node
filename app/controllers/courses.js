@@ -3,7 +3,13 @@ var Course   = mongoose.model('Course');
 var Lesson   = mongoose.model('Lesson');
 
 exports.getCourses = function (req, res) {
-  Course.find({}).exec(function (err, collection) {
+  Course.find({ published: { $ne: null } }).exec(function (err, collection) {
+    res.send(collection);
+  });
+};
+
+exports.getUnpublishedCourses = function (req, res) {
+  Course.find({ published: null }).exec(function (err, collection) {
     res.send(collection);
   });
 };

@@ -9,7 +9,7 @@
   },
   "scripts": {
     "test": "karma start",
-    "start": "nodemon server.js"
+    "start": "node server"
   },
   "author": "onetwo7",
   "license": "MIT",
@@ -20,6 +20,13 @@
     "cookie-parser": "^1.4.3",
     "express": "^4.16.2",
     "express-session": "^1.15.6",
+    "gulp": "^3.9.1",
+    "gulp-changed": "^3.1.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-if": "^2.0.2",
+    "gulp-sourcemaps": "^2.6.1",
+    "gulp-uglify": "^3.0.0",
+    "gulp-watch": "^4.3.11",
     "mongoose": "^4.12.3",
     "morgan": "^1.9.0",
     "ngstorage": "^0.3.11",
