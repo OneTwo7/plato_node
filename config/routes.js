@@ -1,35 +1,34 @@
+var router       = require('express').Router();
 var auth         = require('./auth');
 var userRoutes   = require('./routes/users');
 var courseRoutes = require('./routes/courses');
 var lessonRoutes = require('./routes/lessons');
 
-module.exports = function (app) {
+router.use('/api/users', userRoutes);
 
-  app.use('/api/users', userRoutes);
+router.use('/api/courses', courseRoutes);
 
-  app.use('/api/courses', courseRoutes);
+router.use('/api/courses/:id/lessons', lessonRoutes);
 
-  app.use('/api/courses/:id/lessons', lessonRoutes);
+router.all('/api/*', function (req, res) {
+  res.sendStatus(404);
+});
 
-  app.all('/api/*', function (req, res) {
-    res.sendStatus(404);
-  });
+router.get('/partials/*', function (req, res) {
+  res.render('partials/' + req.params[0]);
+});
 
-  app.get('/partials/*', function (req, res) {
-    res.render('partials/' + req.params[0]);
-  });
+router.post('/login', function (req, res, next) {
+  auth.authenticate(req, res, next);
+});
 
-  app.post('/login', function (req, res, next) {
-    auth.authenticate(req, res, next);
-  });
+router.post('/logout', function (req, res) {
+  req.logout();
+  res.end();
+});
 
-  app.post('/logout', function (req, res) {
-    req.logout();
-    res.end();
-  });
+router.get('*', function (req, res) {
+  res.render('main');
+});
 
-  app.get('*', function (req, res) {
-    res.render('main');
-  });
-
-};
+module.exports = router;
