@@ -7,14 +7,14 @@ angular.module('app').config([
 
     var routeRoleChecks = {
       admin: {
-        auth: function (mvAuth) {
+        auth: ['mvAuth', function (mvAuth) {
           return mvAuth.authorizeCurrentUserForRoute('admin');
-        }
+        }]
       },
       user: {
-        auth: function (mvAuth) {
+        auth: ['mvAuth', function (mvAuth) {
           return mvAuth.authorizeAuthenticatedUserForRoute();
-        }
+        }]
       }
     };
 
