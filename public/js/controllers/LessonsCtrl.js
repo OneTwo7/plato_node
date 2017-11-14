@@ -37,6 +37,10 @@ angular.module('app').controller('LessonsCtrl', function ($scope, $routeParams, 
 
   $scope.modalText = 'Are you sure you want to delete this lesson?';
 
+  $scope.lessonLinkIds = [];
+
+  $scope.lessonLinks = {};
+
   $scope.create = function () {
     var newLessonData = prepareLessonData();
 

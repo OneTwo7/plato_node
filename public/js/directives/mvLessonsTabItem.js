@@ -1,23 +1,27 @@
 angular.module('app').directive('mvLessonsTabItem', function() {
-  return function(scope, element, attrs) {
-    var $courseControlsLinks = $('#course-controls a');
 
+  return function(scope, element, attrs) {
     $(element).click(function (e) {
       e.preventDefault();
-      var $lesson = $(attrs.href);
-      if (!$lesson.hasClass('prepared')) {
-        var length = scope.lessons.length;
-        var content;
-        for (var i = 0; i < length; i++) {
-          if (scope.lessons[i]._id === attrs.href.slice(6)) {
-            content = scope.lessons[i].content;
-            break;
-          }
-        }
-        scope.mvLessonContent.insertContent($lesson, content);
-      }
-      $courseControlsLinks.removeClass('active');
-      $(this).tab('show');
+      scope.mvLessonContent.showLesson(scope.lessons, attrs.href, $(this));
     });
+
+    scope.lessonLinkIds.push(attrs.href);
+
+    if (scope.$last) {
+      var last = scope.lessonLinkIds.length - 1;
+      scope.lessonLinkIds.forEach(function (link, idx) {
+        if (idx === 0) {
+          scope.lessonLinks[link] = scope.lessonLinkIds[1];
+        } else if (idx === last) {
+          scope.lessonLinks[link] = scope.lessonLinkIds[idx - 1];
+        } else {
+          scope.lessonLinks[link] = [
+            scope.lessonLinkIds[idx - 1], scope.lessonLinkIds[idx + 1]
+          ];
+        }
+      });
+    }
   };
+
 });

@@ -61,57 +61,13 @@ pre.code-field.prettyprint .dec {
   display: inline-block;
   min-width: 8rem;
 }
-[ng:cloak],
-[ng-cloak],
-[data-ng-cloak],
-[x-ng-cloak],
-.ng-cloak,
-.x-ng-cloak {
-  display: none !important;
-}
-.navbar {
-  margin-bottom: 2rem;
-}
-.jumbotron {
-  margin-top: -2rem;
-}
-.navbar .form-inline input,
-.navbar .form-inline button {
-  margin-left: 10px;
-}
-.content .form-inline {
-  margin-bottom: 1rem;
-}
-.content .form-inline select {
-  margin-left: 0.5rem;
-}
-footer {
-  border-top: 1px solid #343a40;
-  padding: 1rem;
+#lessons-panes {
   margin-top: 1rem;
 }
-button {
-  cursor: pointer;
-}
-.toast-top-right {
-  top: 4rem;
-}
-.toast-success {
-  background-color: #0cb0e8;
-}
-.error-message {
-  color: #dc3545;
-}
-.ng-dirty.ng-invalid {
-  border-color: #dc3545;
-}
-.ng-dirty.ng-invalid:focus {
-  border-color: #dc3545;
-  box-shadow: 0 0 0 0.2rem rgba(217,31,49,0.25);
-}
-input[type='email'].ng-dirty.ng-invalid:focus {
-  border-color: #80bdff;
-  box-shadow: 0 0 0 0.2rem rgba(0,123,255,0.25);
+@media (min-width: 576px) {
+  #lessons-panes {
+    margin-top: 0;
+  }
 }
 pre {
   white-space: pre-wrap /* css-3 */;
@@ -119,13 +75,6 @@ pre {
   white-space: -pre-wrap /* Opera 4-6 */;
   white-space: -o-pre-wrap /* Opera 7 */;
   word-wrap: break-word /* Internet Explorer 5.5+ */;
-}
-#course-title {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-#course-controls {
-  margin-bottom: 3rem;
 }
 #content-field {
   min-height: 5rem;
@@ -193,6 +142,81 @@ pre {
 #link-modal .modal-body input {
   flex-grow: 9;
 }
+@media (max-width: 767px) {
+  .lesson-content-input #content-buttons,
+  .lesson-content-input #field-buttons {
+    text-align: center;
+  }
+  .lesson-content-input #content-buttons button,
+  .lesson-content-input #field-buttons button {
+    margin: 0.25rem;
+  }
+}
+[ng:cloak],
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak {
+  display: none !important;
+}
+.navbar {
+  margin-bottom: 2rem;
+}
+.jumbotron {
+  margin-top: -2rem;
+}
+.navbar .form-inline input,
+.navbar .form-inline button {
+  margin-left: 10px;
+}
+.content .form-inline {
+  margin-bottom: 1rem;
+}
+.content .form-inline select {
+  margin-left: 0.5rem;
+}
+footer {
+  border-top: 1px solid #343a40;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+button {
+  cursor: pointer;
+}
+.disabled {
+  cursor: initial;
+}
+.disabled:hover {
+  text-decoration: none;
+}
+.toast-top-right {
+  top: 4rem;
+}
+.toast-success {
+  background-color: #0cb0e8;
+}
+.error-message {
+  color: #dc3545;
+}
+.ng-dirty.ng-invalid {
+  border-color: #dc3545;
+}
+.ng-dirty.ng-invalid:focus {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 0.2rem rgba(217,31,49,0.25);
+}
+input[type='email'].ng-dirty.ng-invalid:focus {
+  border-color: #80bdff;
+  box-shadow: 0 0 0 0.2rem rgba(0,123,255,0.25);
+}
+#course-title {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+#course-controls {
+  margin-bottom: 3rem;
+}
 #course-form-card {
   margin-bottom: 1rem;
 }
@@ -229,16 +253,5 @@ pre {
   #course-list-search-form select {
     margin-left: 0;
     margin-top: 0.5rem;
-  }
-  #lesson-panes {
-    margin-top: 1rem;
-  }
-  .lesson-content-input #content-buttons,
-  .lesson-content-input #field-buttons {
-    text-align: center;
-  }
-  .lesson-content-input #content-buttons button,
-  .lesson-content-input #field-buttons button {
-    margin: 0.25rem;
   }
 }

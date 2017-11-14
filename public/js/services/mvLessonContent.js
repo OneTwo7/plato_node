@@ -99,6 +99,23 @@ angular.module('app').factory('mvLessonContent', function (mvIdentity, mvNotifie
     showPane: function (lessons) {
       showPane(lessons);
     },
+    showLesson: function (lessons, href, $tab) {
+      var $lesson = $(href);
+      if (!$lesson.hasClass('prepared')) {
+        var length = lessons.length;
+        var content;
+        for (var i = 0; i < length; i++) {
+          if (lessons[i]._id === href.slice(6)) {
+            content = lessons[i].content;
+            break;
+          }
+        }
+        insertContent($lesson, content);
+      }
+      $('#course-controls a').removeClass('active');
+      $('html').animate({ scrollTop: 0 }, 'slow');
+      $tab.tab('show');
+    },
     prepareView: function ($scope) {
       var $courseControlsLinks = $('#course-controls a');
       var $contentField = $('#content-field');
