@@ -1,12 +1,16 @@
-angular.module('app').factory('mvCachedCourses', function (mvCourse) {
-  var courseList;
+angular.module('app').factory('mvCachedCourses', [
+  'mvCourse',
+  function (mvCourse) {
 
-  return {
-    query: function () {
-      if (!courseList) {
-        courseList = mvCourse.query();
+    var courseList;
+
+    return {
+      query: function () {
+        if (!courseList) {
+          courseList = mvCourse.query();
+        }
+        return courseList;
       }
-      return courseList;
-    }
-  };
-});
+    };
+  }
+]);

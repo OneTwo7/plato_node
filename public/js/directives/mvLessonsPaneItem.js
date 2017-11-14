@@ -1,4 +1,4 @@
-angular.module('app').directive('mvLessonsPaneItem', function() {
+angular.module('app').directive('mvLessonsPaneItem', [function() {
 
   return function(scope, element, attrs) {
     var $prev = $(element).find('.previous-lesson-btn');
@@ -35,4 +35,4 @@ angular.module('app').directive('mvLessonsPaneItem', function() {
     }
   };
 
-});
+}]);

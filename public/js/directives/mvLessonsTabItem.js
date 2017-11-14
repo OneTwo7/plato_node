@@ -1,4 +1,4 @@
-angular.module('app').directive('mvLessonsTabItem', function() {
+angular.module('app').directive('mvLessonsTabItem', [function() {
 
   return function(scope, element, attrs) {
     $(element).click(function (e) {
@@ -24,4 +24,4 @@ angular.module('app').directive('mvLessonsTabItem', function() {
     }
   };
 
-});
+}]);
