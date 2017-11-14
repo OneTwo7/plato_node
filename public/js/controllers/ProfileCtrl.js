@@ -19,8 +19,6 @@ angular.module('app').controller('ProfileCtrl', [
         lastName: $scope.lastName
       };
 
-      console.log($scope.password);
-
       if ($scope.password && $scope.password.length > 0) {
         newUserData.password = $scope.password;
       }
