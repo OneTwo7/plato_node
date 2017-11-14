@@ -239,6 +239,9 @@ input[type='email'].ng-dirty.ng-invalid:focus {
   display: flex;
   justify-content: space-between;
 }
+.edit-course-btn {
+  margin-right: 0.5rem;
+}
 @media (min-width: 576px) {
   #course-links {
     width: auto;

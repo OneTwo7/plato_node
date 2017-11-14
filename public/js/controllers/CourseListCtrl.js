@@ -1,4 +1,4 @@
-angular.module('app').controller('CourseListCtrl', function ($scope, $http, mvCachedCourses, mvCourseFactory, mvNotifier, mvIdentity) {
+angular.module('app').controller('CourseListCtrl', function ($scope, $http, $routeParams, mvCachedCourses, mvCourseFactory, mvNotifier, mvIdentity) {
   
   $scope.courses = mvCachedCourses.query();
 
@@ -9,10 +9,12 @@ angular.module('app').controller('CourseListCtrl', function ($scope, $http, mvCa
 
   $scope.featuredOptions = [
     { value: '', text: 'All' },
-    { value: '{featured:true}', text: 'Featured' }
+    { value: 'true', text: 'Featured' }
   ];
 
   $scope.sortOrder = $scope.sortOptions[0].value;
+
+  $scope.featuredFilter = $scope.featuredOptions[0].value;
 
   $scope.mvIdentity = mvIdentity;
 
@@ -25,6 +27,8 @@ angular.module('app').controller('CourseListCtrl', function ($scope, $http, mvCa
   $scope.action = create;
 
   $scope.modalText = 'Are you sure you want to delete this course with all its lessons?';
+
+  $scope.searchText = $routeParams.tag;
 
   $scope.edit = function (id) {
     var course;
@@ -82,22 +86,11 @@ angular.module('app').controller('CourseListCtrl', function ($scope, $http, mvCa
     $scope.courses = mvCachedCourses.query();
   };
 
-  $scope.featured = function () {
-    var courses = [];
-    $scope.courses = mvCachedCourses.query();
-    $scope.courses.forEach(function (course) {
-      if (course.featured) {
-        courses.push(course);
-      }
-    });
-    $scope.courses = courses;
-  };
-
   $scope.unpublished = function () {
     $http.get('/api/courses/unpublished').then(function (data) {
       $scope.courses = data.data;
     });
-  }
+  };
 
   function create () {
     var courseData = {

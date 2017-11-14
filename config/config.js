@@ -8,7 +8,7 @@ module.exports = {
     rootPath: rootPath
   },
   'production': {
-    db: 'mongodb://localhost/plato',
+    db: process.env.MLAB_URI,
     port: process.env.PORT || 80,
     rootPath: rootPath
   }

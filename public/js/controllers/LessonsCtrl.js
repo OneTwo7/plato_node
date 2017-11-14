@@ -1,4 +1,4 @@
-angular.module('app').controller('LessonsCtrl', function ($scope, $routeParams, $q, $timeout, mvCachedCourses, mvLessonFactory, mvNotifier, mvIdentity, mvLessonContent, mvCachedLessons) {
+angular.module('app').controller('LessonsCtrl', function ($scope, $routeParams, $q, $timeout, $http, mvCachedCourses, mvLessonFactory, mvNotifier, mvIdentity, mvLessonContent, mvCachedLessons) {
   
   mvCachedCourses.query().$promise.then(function (collection) {
     collection.forEach(function (course) {
@@ -6,6 +6,12 @@ angular.module('app').controller('LessonsCtrl', function ($scope, $routeParams, 
         $scope.course = course;
       }
     });
+    if (!$scope.course) {
+      $http.get('/api/courses/' + $routeParams.id).then(function (data) {
+        $scope.course = data.data;
+        console.log($scope.course);
+      });
+    }
   });
 
   $scope.lessons = mvCachedLessons.query($routeParams.id);

@@ -10,4 +10,5 @@
           th Tags
         tbody
           tr(ng-repeat='tag in course.tags')
-            td {{ tag }}
+            td
+              a(href='/courses?tag={{ tag }}') {{ tag }}
