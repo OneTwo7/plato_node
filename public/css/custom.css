@@ -37,6 +37,30 @@ pre.code-field.prettyprint .atv {
 pre.code-field.prettyprint .dec {
   color: #3387cc /* decimal - blue */;
 }
+.lesson .card-footer {
+  padding: 0.75rem 0;
+}
+.lesson-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.75rem 1.25rem 0 1.25rem;
+  margin-top: 0.75rem;
+  border-top: 1px solid rgba(0,0,0,0.125);
+}
+.lesson-footer button {
+  min-width: 5rem;
+  margin-left: 0.5rem;
+}
+.lesson-controls button {
+  margin-right: 0.5rem;
+}
+.lessons-navigation {
+  text-align: center;
+}
+.lessons-navigation a {
+  display: inline-block;
+  min-width: 8rem;
+}
 [ng:cloak],
 [ng-cloak],
 [data-ng-cloak],
@@ -102,19 +126,6 @@ pre {
 }
 #course-controls {
   margin-bottom: 3rem;
-}
-.lesson .card-footer,
-#details .card-footer {
-  display: flex;
-  justify-content: flex-end;
-}
-.lesson .card-footer button,
-#details .card-footer button {
-  min-width: 5rem;
-  margin-left: 0.5rem;
-}
-.lesson-controls button {
-  margin-right: 0.5rem;
 }
 #content-field {
   min-height: 5rem;

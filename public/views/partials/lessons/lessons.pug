@@ -23,8 +23,13 @@
               h2 {{ lesson.title }}
             .card-body
               pre.lesson-content
-            .card-footer(ng-show='mvIdentity.isAuthenticated() && mvIdentity.currentUser.isAdmin()')
-              button.btn.btn-primary(ng-click='edit(lesson._id)' type='button') Edit
-              button.btn.btn-danger(ng-click='confirm(lesson._id)' type='button') Delete
+            .card-footer
+              .lessons-navigation
+                a.disabled Previous
+                a(href='/courses') Course List
+                a.disabled Next
+              div.lesson-footer(ng-show='mvIdentity.isAuthenticated() && mvIdentity.currentUser.isAdmin()')
+                button.btn.btn-primary(ng-click='edit(lesson._id)' type='button') Edit
+                button.btn.btn-danger(ng-click='confirm(lesson._id)' type='button') Delete
 
 div(ng-include='"/partials/messages/delete-modal"')
