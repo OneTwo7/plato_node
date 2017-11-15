@@ -2,13 +2,14 @@ angular.module('app').controller('CourseListCtrl', [
   '$scope',
   '$http',
   '$routeParams',
+  '$timeout',
   'mvCachedCourses',
   'mvCourseFactory',
   'mvNotifier',
   'mvIdentity',
   function (
-    $scope, $http, $routeParams, mvCachedCourses, mvCourseFactory, mvNotifier,
-    mvIdentity
+    $scope, $http, $routeParams, $timeout, mvCachedCourses, mvCourseFactory,
+    mvNotifier, mvIdentity
   ) {
   
     $scope.courses = mvCachedCourses.query();
@@ -37,7 +38,8 @@ angular.module('app').controller('CourseListCtrl', [
 
     $scope.action = create;
 
-    $scope.modalText = 'Are you sure you want to delete this course with all its lessons?';
+    $scope.modalText = 'Are you sure you want to delete this course with ' +
+                       'all its lessons?';
 
     $scope.searchText = $routeParams.tag;
 
@@ -63,9 +65,9 @@ angular.module('app').controller('CourseListCtrl', [
     };
 
     $scope.cancel = function () {
-      $scope.formData = {};
       $scope.buttonText = 'Create';
       $scope.action = create;
+      resetForm();
     }
 
     $scope.confirm = function (id) {
@@ -110,8 +112,8 @@ angular.module('app').controller('CourseListCtrl', [
       }
 
       mvCourseFactory.create(courseData).then(function (course) {
-        $('form[name="courseForm"')[0].reset();
         mvNotifier.notify('Course created!');
+        resetForm();
         $scope.courses.push(course);
       }, function (reason) {
         mvNotifier.error(reason);
@@ -149,6 +151,14 @@ angular.module('app').controller('CourseListCtrl', [
         mvNotifier.notify('Course updated!');
       }, function (reason) {
         mvNotifier.error(reason);
+      });
+    }
+
+    function resetForm () {
+      $scope.formData = {};
+      $scope.courseForm.$setPristine();
+      $timeout(function () {
+        $('input[name="title"]').blur();
       });
     }
     

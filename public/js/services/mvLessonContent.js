@@ -130,7 +130,7 @@ angular.module('app').factory('mvLessonContent', [
           $scope.$apply(function () {
             $scope.type = 'new';
             $scope.formData = {};
-            $('form[name="newLessonForm"]')[0].reset();
+            $scope.lessonForm.$setPristine();
             $contentField.html('<div></div>');
           });
         });

@@ -1,6 +1,6 @@
 .container
   .card.bg-light
-    form.form-horizontal(name="newLessonForm")
+    form.form-horizontal(name="lessonForm")
       fieldset
         .card-header
           h2 {{ formParams[type].header }}
@@ -24,7 +24,7 @@
               button.btn.btn-dark#bash-btn(type="button") Bash
               button.btn.btn-danger#clear-btn(type="button") Clear
           .form-group.lesson-controls
-            button.btn.btn-primary(ng-click="formParams[type].action()", ng-disabled="newLessonForm.$invalid") {{ formParams[type].button }}
+            button.btn.btn-primary(ng-click="formParams[type].action()", ng-disabled="lessonForm.$invalid") {{ formParams[type].button }}
             button.btn.btn-secondary(ng-show="type === 'edit'" ng-click="cancelEdit()") Cancel
 
 <!-- Link Modal -->

@@ -70,8 +70,9 @@ angular.module('app').controller('LessonsCtrl', [
       }
 
       mvLessonFactory.create(newLessonData).then(function (lesson) {
-        $('form[name="newLessonForm"')[0].reset();
         mvNotifier.notify('Lesson created!');
+        $scope.formData = {};
+        $scope.lessonForm.$setPristine();
         $scope.lessons.push(lesson);
       }, function (reason) {
         mvNotifier.error(reason);
@@ -130,6 +131,7 @@ angular.module('app').controller('LessonsCtrl', [
         for (var i = 0; i < length; i++) {
           if (!$scope.lessons[i]._id) {
             $scope.lessons.splice(i, 1);
+            break;
           }
         }
         $timeout(function () {

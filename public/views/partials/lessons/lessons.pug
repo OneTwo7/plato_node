@@ -3,7 +3,7 @@
   .row
     .col-md-3
       .list-group#course-controls(role='tablist')
-        a.list-group-item.list-group-item-action#list-new-lesson-list(ng-show='mvIdentity.isAuthenticated() && mvIdentity.currentUser.isAdmin()' data-toggle='list' href='#lesson-form-tab' role='tab' aria-controls='new lesson form') New Lesson
+        a.list-group-item.list-group-item-action#list-new-lesson-list(ng-show='mvIdentity.isAuthenticated() && mvIdentity.currentUser.isAdmin()' data-toggle='list' href='#lesson-form-tab' role='tab' aria-controls='lesson form') New Lesson
         a.list-group-item.list-group-item-action#list-edit-lesson-list(data-toggle='list' href='#lesson-form-tab' ng-hide='true')
         a.list-group-item.list-group-item-action#list-course-details-list(data-toggle='list' href='#details' role='tab' aria-controls='course details') Course Details
         a.list-group-item.list-group-item-action(href='/courses') Back
@@ -13,9 +13,9 @@
     .col-md-9#lessons-panes
       .tab-content#lessons-tabs
         .tab-pane.fade#lesson-form-tab(role='tabpanel' aria-labelledby='list-new-lesson-list')
-          div(ng-include='"/partials/lessons/new-lesson"')
+          include /views/partials/lessons/form
         .tab-pane.fade#details(role='tabpanel' aria-labelledby='list-course-details-list')
-          div(ng-include='"/partials/courses/course-details"')
+          include /views/partials/courses/course-details
 
         .lesson.tab-pane.fade(ng-repeat='lesson in lessons' id="list-{{ lesson._id }}" role="tabpanel" mv-lessons-pane-item)
           .card.border-dark.mb-3
@@ -32,4 +32,4 @@
                 button.btn.btn-primary(ng-click='edit(lesson._id)' type='button') Edit
                 button.btn.btn-danger(ng-click='confirm(lesson._id)' type='button') Delete
 
-div(ng-include='"/partials/messages/delete-modal"')
+include /views/partials/messages/delete-modal

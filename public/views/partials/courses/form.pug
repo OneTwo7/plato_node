@@ -3,7 +3,7 @@
     fieldset
       .card-body
         .form-group
-          input.form-control(name="title" type="text" placeholder="Title" ng-model="formData.title")
+          input.form-control(name="title" type="text" placeholder="Title" ng-model="formData.title" required)
         .form-group
           input.form-control(name="tags" type="text" placeholder="Tags" ng-model="formData.tags" ng-list=", ")
         .form-group(ng-hide="buttonText === 'Create'")
@@ -14,5 +14,5 @@
             input(type="checkbox" ng-model="formData.featured" value="featured")
             span Featured
         .form-group.course-controls
-          button.btn.btn-primary(ng-click="action()", ng-disabled="!formData.title.length || hasDuplicates(formData.tags)") {{ buttonText }}
+          button.btn.btn-primary(ng-click="action()", ng-disabled="courseForm.$invalid || hasDuplicates(formData.tags)") {{ buttonText }}
           button.btn.btn-secondary(ng-hide="buttonText === 'Create'" ng-click="cancel()") Cancel

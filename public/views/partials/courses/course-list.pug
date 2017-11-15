@@ -1,7 +1,8 @@
 .container
   .row
     .col-md-10.offset-md-1
-      div(ng-show='mvIdentity.isAuthenticated() && mvIdentity.currentUser.isAdmin()' ng-include='"partials/courses/form"')
+      div(ng-show='mvIdentity.isAuthenticated() && mvIdentity.currentUser.isAdmin()')
+        include /views/partials/courses/form
       form.form-inline.float-right#course-list-search-form
         div#course-links(ng-show='mvIdentity.isAuthenticated() && mvIdentity.currentUser.isAdmin()')
           button.btn.btn-link(type='button' ng-click='all()') All
@@ -23,4 +24,4 @@
               button.btn.btn-link.edit-course-btn(type='button' ng-click='edit(course._id)') edit
               button.btn.btn-link(type='button' ng-click='confirm(course._id)') delete
 
-div(ng-include='"/partials/messages/delete-modal"')
+include /views/partials/messages/delete-modal
