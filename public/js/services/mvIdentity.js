@@ -1,7 +1,8 @@
 angular.module('app').factory('mvIdentity', [
   '$localStorage',
+  '$http',
   'mvUser',
-  function ($localStorage, mvUser) {
+  function ($localStorage, $http, mvUser) {
   
     var currentUser;
 
