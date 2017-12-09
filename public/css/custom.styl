@@ -7,14 +7,14 @@
 
 .navbar
   margin-bottom: 2rem
-  
+
 .jumbotron
   margin-top: -2rem
 
 .navbar .form-inline
   input, button
     margin-left: 10px
-    
+
 .content .form-inline
   margin-bottom: 1rem
   select
@@ -24,10 +24,10 @@ footer
   border-top: 1px solid #343a40
   padding: 1rem
   margin-top: 1rem
-  
+
 button
   cursor: pointer
-  
+
 .disabled
   cursor: initial
   &:hover
@@ -35,19 +35,19 @@ button
 
 .toast-top-right
   top: 4rem
-  
+
 .toast-success
   background-color: #0CB0E8
-  
+
 .error-message
   color: #dc3545
-  
+
 .ng-dirty.ng-invalid
   border-color: #dc3545
   &:focus
     border-color: #dc3545
     box-shadow: 0 0 0 0.2rem rgba(217,31,49,.25)
-    
+
 input[type='email'].ng-dirty.ng-invalid:focus
   border-color: #80bdff
   box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25)
@@ -58,34 +58,37 @@ input[type='email'].ng-dirty.ng-invalid:focus
 
 #course-controls
   margin-bottom: 3rem
-      
+
 #course-form-card
   margin-bottom: 1rem
   .course-controls
     margin-bottom: 0
     button:nth-child(2)
       margin-left: .5rem
-      
+
 #course-links
   display: flex
   justify-content: space-between
   width: 100%
-    
+
 .course-list-table
   .btn-link
     border: none
     padding: 0
-    
+
 .new-course
   display: flex
   justify-content: space-between
-  
+
 .edit-course-btn
   margin-right: .5rem
 
 @media (min-width: 576px)
   #course-links
     width: auto
+  .form-inline .form-control
+    display: block
+    width: 100%
 
 @media (max-width: 767px)
   .navbar-collapse
@@ -93,7 +96,7 @@ input[type='email'].ng-dirty.ng-invalid:focus
       input, button
         margin-left: 0
         margin-bottom: .5rem
-        
+
   #course-list-search-form
     select
       margin-left: 0

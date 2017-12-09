@@ -3,8 +3,17 @@ angular.module('app').factory('mvIdentity', [
   '$http',
   'mvUser',
   function ($localStorage, $http, mvUser) {
-  
+
     var currentUser;
+
+    $http.get('/user').then(function (res) {
+      if (!res.data) {
+        $http.post('/logout', { logout: true }).then(function () {
+          delete $localStorage.currentUser;
+          this.currentUser = undefined;
+        });
+      }
+    });
 
     if (!!$localStorage.currentUser) {
       currentUser = new mvUser();

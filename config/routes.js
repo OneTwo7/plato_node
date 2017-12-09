@@ -27,6 +27,10 @@ router.post('/logout', function (req, res) {
   res.end();
 });
 
+router.get('/user', function (req, res) {
+  res.send(!!req.user);
+})
+
 router.get('*', function (req, res) {
   res.render('main');
 });

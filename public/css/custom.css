@@ -246,6 +246,10 @@ input[type='email'].ng-dirty.ng-invalid:focus {
   #course-links {
     width: auto;
   }
+  .form-inline .form-control {
+    display: block;
+    width: 100%;
+  }
 }
 @media (max-width: 767px) {
   .navbar-collapse .form-inline input,
