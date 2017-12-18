@@ -11,6 +11,9 @@
 .jumbotron
   margin-top: -2rem
 
+#bootstrapped-user-div
+  display: none
+
 .navbar .form-inline
   input, button
     margin-left: 10px
@@ -86,9 +89,6 @@ input[type='email'].ng-dirty.ng-invalid:focus
 @media (min-width: 576px)
   #course-links
     width: auto
-  .form-inline .form-control
-    display: block
-    width: 100%
 
 @media (max-width: 767px)
   .navbar-collapse
@@ -96,6 +96,9 @@ input[type='email'].ng-dirty.ng-invalid:focus
       input, button
         margin-left: 0
         margin-bottom: .5rem
+    .form-inline .form-control
+      display: block
+      width: 100%
 
   #course-list-search-form
     select

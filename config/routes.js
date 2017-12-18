@@ -1,5 +1,6 @@
 var router       = require('express').Router();
 var auth         = require('./auth');
+var utility      = require('../app/utilities/miscellaneous');
 var userRoutes   = require('./routes/users');
 var courseRoutes = require('./routes/courses');
 var lessonRoutes = require('./routes/lessons');
@@ -27,12 +28,10 @@ router.post('/logout', function (req, res) {
   res.end();
 });
 
-router.get('/user', function (req, res) {
-  res.send(!!req.user);
-})
-
 router.get('*', function (req, res) {
-  res.render('main');
+  res.render('main', {
+    bootstrappedUser: utility.getUserObject(req.user)
+  });
 });
 
 module.exports = router;

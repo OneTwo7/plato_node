@@ -1,23 +1,16 @@
 angular.module('app').factory('mvIdentity', [
-  '$localStorage',
   '$http',
   'mvUser',
-  function ($localStorage, $http, mvUser) {
+  function ($http, mvUser) {
 
     var currentUser;
+    var bootstrappedUser;
+    var userDiv = document.getElementById('bootstrapped-user-div');
 
-    $http.get('/user').then(function (res) {
-      if (!res.data) {
-        $http.post('/logout', { logout: true }).then(function () {
-          delete $localStorage.currentUser;
-          this.currentUser = undefined;
-        });
-      }
-    });
-
-    if (!!$localStorage.currentUser) {
+    if (userDiv) {
+      bootstrappedUser = JSON.parse(userDiv.innerHTML);
       currentUser = new mvUser();
-      angular.extend(currentUser, $localStorage.currentUser);
+      angular.extend(currentUser, bootstrappedUser);
     }
 
     return {
@@ -25,11 +18,9 @@ angular.module('app').factory('mvIdentity', [
       setUser: function (user) {
         delete user.password;
         delete user.salt
-        $localStorage.currentUser = user;
         this.currentUser = user;
       },
       removeUser: function () {
-        delete $localStorage.currentUser;
         this.currentUser = undefined;
       },
       isAuthenticated: function () {

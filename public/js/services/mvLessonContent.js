@@ -116,7 +116,9 @@ angular.module('app').factory('mvLessonContent', [
           insertContent($lesson, content);
         }
         $('#course-controls a').removeClass('active');
-        $('html').animate({ scrollTop: 0 }, 'slow');
+        if ($(window).width() >= 768) {
+          $('html').animate({ scrollTop: 0 }, 'slow');
+        }
         $tab.tab('show');
       },
       prepareView: function ($scope) {

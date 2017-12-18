@@ -1,2 +1,2 @@
-angular.module('app', ['ngResource', 'ngStorage']);
+angular.module('app', ['ngResource']);
 var toastr = {};
