@@ -1,6 +1,6 @@
 angular.module('app').directive('mvLessonsTabItem', [function() {
 
-  return function(scope, element, attrs) {
+  return function (scope, element, attrs) {
     $(element).click(function (e) {
       e.preventDefault();
       scope.mvLessonContent.showLesson(scope.lessons, attrs.href, $(this));

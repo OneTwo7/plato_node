@@ -61,20 +61,50 @@ pre.code-field.prettyprint .dec {
   display: inline-block;
   min-width: 8rem;
 }
+#toggle-lessons-tab-lists {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  border-radius: 0.25rem;
+  margin: 0 15px;
+}
+#toggle-lessons-tab-lists .navbar-toggler {
+  margin-right: 0.5rem;
+}
+#lessons-row {
+  position: relative;
+}
+#lessons-tab-lists {
+  padding: 1rem 15px;
+  border-radius: 0.25rem;
+  background: #fff;
+  position: absolute;
+  top: 4rem;
+  z-index: 2;
+  display: none;
+}
 #lessons-panes {
-  margin-top: 1rem;
+  margin-top: 3rem;
 }
-#lessons-tab-list {
-  margin-bottom: 1rem;
-}
-@media (min-width: 576px) {
-  #lessons-panes {
-    margin-top: 0;
-  }
+#course-controls {
+  margin-bottom: 2rem;
 }
 @media (min-width: 768px) {
-  #lessons-tab-list {
-    margin-bottom: 0;
+  #toggle-lessons-tab-lists {
+    display: none;
+  }
+  #course-controls {
+    margin-bottom: 3rem;
+  }
+  #lessons-tab-lists {
+    padding: 0 15px;
+    background: none;
+    display: block;
+    position: relative;
+    top: 0;
+  }
+  #lessons-panes {
+    margin-top: 0;
   }
 }
 pre {
@@ -224,9 +254,6 @@ input[type='email'].ng-dirty.ng-invalid:focus {
 #course-title {
   text-align: center;
   margin-bottom: 2rem;
-}
-#course-controls {
-  margin-bottom: 3rem;
 }
 #course-form-card {
   margin-bottom: 1rem;
