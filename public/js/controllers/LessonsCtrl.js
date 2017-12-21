@@ -58,6 +58,8 @@ angular.module('app').controller('LessonsCtrl', [
 
     $scope.modalText = 'Are you sure you want to delete this lesson?';
 
+    $scope.directiveMethods = {};
+
     $scope.lessonLinkIds = [];
 
     $scope.lessonLinks = {};
@@ -75,18 +77,15 @@ angular.module('app').controller('LessonsCtrl', [
         $scope.lessonForm.$setPristine();
         $scope.lessons.push(lesson);
         // Add next link to previous lesson pane
-        $timeout(function () {
-          var lastLessonIdx = $scope.lessonLinkIds.length - 1;
-          var nextTab = $scope.lessonLinkIds[lastLessonIdx];
-          var $prevLessonPane = $($scope.lessonLinkIds[lastLessonIdx - 1]);
-          var $nextBtn = $prevLessonPane.find('.next-lesson-btn');
-          $nextBtn.removeClass('disabled').prop('disabled', false)
-          .removeAttr('tabindex');
-          $nextBtn.click(function () {
-            var $tab = $('a[href="' + nextTab + '"]');
-            $scope.mvLessonContent.showLesson($scope.lessons, nextTab, $tab);
+        if ($scope.lessons.length > 1) {
+          $timeout(function () {
+            var idx = $scope.lessonLinkIds.length - 2;
+            var href = $scope.lessonLinkIds[idx];
+            $scope.directiveMethods.establishLinks(
+              $scope, $(href), idx === 0, false, href
+            );
           });
-        });
+        }
       }, function (reason) {
         mvNotifier.error(reason);
       });
@@ -141,13 +140,42 @@ angular.module('app').controller('LessonsCtrl', [
       mvLessonFactory.delete(id).then(function () {
         mvNotifier.notify('Lesson removed!');
         var length = $scope.lessons.length;
+        var idx;
         for (var i = 0; i < length; i++) {
           if (!$scope.lessons[i]._id) {
             $scope.lessons.splice(i, 1);
+            idx = i;
             break;
           }
         }
         $timeout(function () {
+          // Handle changes to lesson's previous/next buttons
+          length--;
+          if (length) {
+            var prevHref, nextHref;
+            $scope.lessonLinkIds.splice(idx, 1);
+            $scope.directiveMethods.composeLinks($scope);
+            if (idx === 0) {
+              nextHref = $scope.lessonLinkIds[0];
+              $scope.directiveMethods.establishLinks(
+                $scope, $(nextHref), true, idx + 1 === length, nextHref
+              );
+            } else if (idx === length) {
+              prevHref = $scope.lessonLinkIds[idx - 1];
+              $scope.directiveMethods.establishLinks(
+                $scope, $(prevHref), false, true, prevHref
+              );
+            } else {
+              prevHref = $scope.lessonLinkIds[idx - 1];
+              nextHref = $scope.lessonLinkIds[idx];
+              $scope.directiveMethods.establishLinks(
+                $scope, $(prevHref), idx - 1 === 0, false, prevHref
+              );
+              $scope.directiveMethods.establishLinks(
+                $scope, $(nextHref), false, idx + 1 === length, nextHref
+              );
+            }
+          }
           mvLessonContent.showPane($scope.lessons);
         });
       }, function (reason) {

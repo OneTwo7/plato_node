@@ -1,4 +1,5 @@
 angular.module('app').directive('mvPasswordConfirmation', [function () {
+
   return {
     require: 'ngModel',
     scope: {
@@ -16,4 +17,5 @@ angular.module('app').directive('mvPasswordConfirmation', [function () {
 
     }
   };
+
 }]);
