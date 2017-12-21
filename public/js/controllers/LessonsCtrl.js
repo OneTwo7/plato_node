@@ -9,12 +9,12 @@ angular.module('app').controller('LessonsCtrl', [
   'mvNotifier',
   'mvIdentity',
   'mvLessonContent',
-  'mvCachedLessons', 
+  'mvCachedLessons',
   function (
     $scope, $routeParams, $q, $timeout, $http, mvCachedCourses,
     mvLessonFactory, mvNotifier, mvIdentity, mvLessonContent, mvCachedLessons
   ) {
-  
+
     mvCachedCourses.query().$promise.then(function (collection) {
       collection.forEach(function (course) {
         if (course._id === $routeParams.id) {
@@ -74,6 +74,19 @@ angular.module('app').controller('LessonsCtrl', [
         $scope.formData = {};
         $scope.lessonForm.$setPristine();
         $scope.lessons.push(lesson);
+        // Add next link to previous lesson pane
+        $timeout(function () {
+          var lastLessonIdx = $scope.lessonLinkIds.length - 1;
+          var nextTab = $scope.lessonLinkIds[lastLessonIdx];
+          var $prevLessonPane = $($scope.lessonLinkIds[lastLessonIdx - 1]);
+          var $nextBtn = $prevLessonPane.find('.next-lesson-btn');
+          $nextBtn.removeClass('disabled').prop('disabled', false)
+          .removeAttr('tabindex');
+          $nextBtn.click(function () {
+            var $tab = $('a[href="' + nextTab + '"]');
+            $scope.mvLessonContent.showLesson($scope.lessons, nextTab, $tab);
+          });
+        });
       }, function (reason) {
         mvNotifier.error(reason);
       });
@@ -158,7 +171,7 @@ angular.module('app').controller('LessonsCtrl', [
 
     $q.race([
       $scope.lessons.$promise
-    ]).then(function() { 
+    ]).then(function() {
       $scope.$broadcast('dataloaded');
     });
 
