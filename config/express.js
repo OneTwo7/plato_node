@@ -21,7 +21,7 @@ module.exports = function (app, config) {
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
   app.use(session({
-    secret: 'Divine Unicorn',
+    secret: config.sessionSecret,
     resave: true,
     saveUninitialized: true,
     store: new MongoStore({ mongooseConnection: mongoose.connection })

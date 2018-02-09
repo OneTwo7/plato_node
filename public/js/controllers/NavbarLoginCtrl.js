@@ -1,10 +1,11 @@
 angular.module('app').controller('NavbarLoginCtrl', [
   '$scope',
   '$location',
+  '$timeout',
   'mvIdentity',
   'mvNotifier',
   'mvAuth',
-  function ($scope, $location, mvIdentity, mvNotifier, mvAuth) {
+  function ($scope, $location, $timeout, mvIdentity, mvNotifier, mvAuth) {
 
     $scope.mvIdentity = mvIdentity;
     $scope.signin = function (email, password) {
@@ -24,6 +25,20 @@ angular.module('app').controller('NavbarLoginCtrl', [
         $location.path('/');
       })
     }
-    
+
+    /*$('.navbar-nav>li>a').on('click', function(){
+      $('.navbar-collapse').collapse('hide');
+    });*/
+
+    $timeout(function () {
+      var $navbarBrand = $('.navbar-brand');
+      var $navbarLinks = $('.navbar-nav .navbar-item a');
+      var $dropdownLinks = $('.navbar-nav .dropdown-menu a');
+      var $els = $.merge($navbarBrand, $navbarLinks);
+      $els = $.merge($els, $dropdownLinks);
+      $els.on('click', function () {
+        $('.navbar-collapse').collapse('hide');
+      })
+    });
   }
 ]);
