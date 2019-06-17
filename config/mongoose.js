@@ -1,23 +1,28 @@
-var mongoose = require('mongoose');
-var UserModel = require('../app/models/User');
-var CourseModel = require('../app/models/Course');
-var LessonModel = require('../app/models/Lesson');
+const mongoose = require('mongoose');
+const UserModel = require('../app/models/User');
+const CourseModel = require('../app/models/Course');
+const LessonModel = require('../app/models/Lesson');
 
 module.exports = function (config) {
 
-  mongoose.Promise = global.Promise;
+    mongoose.Promise = global.Promise;
 
-  mongoose.connect(config.db, { useMongoClient: true });
-  var db = mongoose.connection;
-  db.on('error', console.error.bind(console, 'connection error...'));
-  db.once('open', function () {
-    console.log('connected to db');
-  });
+    mongoose.connect(config.db, { useMongoClient: true })
+        .then(() => {
+            const db = mongoose.connection;
 
-  UserModel.createDefaultUsers();
-
-  CourseModel.createDefaultCourses();
-
-  LessonModel.createDefaultLessons();
+            db.once('open', function () {
+                console.log('connected to db');
+            });
+    
+            UserModel.createDefaultUsers();
+    
+            CourseModel.createDefaultCourses();
+    
+            LessonModel.createDefaultLessons();
+        })
+        .catch(err => {
+            console.log(err);
+        });
 
 };
