@@ -11,6 +11,10 @@ router.use('/api/courses', courseRoutes);
 
 router.use('/api/courses/:id/lessons', lessonRoutes);
 
+router.get('/api/current_user', function (req, res) {
+    res.send(req.user);
+});
+
 router.post('/api/login', function (req, res, next) {
     auth.authenticate(req, res, next);
 });
