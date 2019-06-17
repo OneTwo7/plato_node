@@ -43,8 +43,6 @@ exports.updateCourse = function (req, res) {
       return res.send({ reason: err.toString() });
     }
 
-    console.log(course);
-
     res.send(course);
   });
 };

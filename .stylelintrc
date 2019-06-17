@@ -1,0 +1,7 @@
+{
+    "extends": "stylelint-config-recommended",
+    "ignoreFiles": "**/*.js",
+    "rules": {
+        "selector-max-id": 1
+    }
+}

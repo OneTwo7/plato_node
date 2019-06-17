@@ -11,27 +11,27 @@ router.use('/api/courses', courseRoutes);
 
 router.use('/api/courses/:id/lessons', lessonRoutes);
 
+router.post('/api/login', function (req, res, next) {
+    auth.authenticate(req, res, next);
+});
+
+router.post('/api/logout', function (req, res) {
+    req.logout();
+    res.end();
+});
+
 router.all('/api/*', function (req, res) {
-  res.sendStatus(404);
+    res.sendStatus(404);
 });
 
 router.get('/partials/*', function (req, res) {
-  res.render('partials/' + req.params[0]);
-});
-
-router.post('/login', function (req, res, next) {
-  auth.authenticate(req, res, next);
-});
-
-router.post('/logout', function (req, res) {
-  req.logout();
-  res.end();
+    res.render('partials/' + req.params[0]);
 });
 
 router.get('*', function (req, res) {
-  res.render('main', {
-    bootstrappedUser: utility.getUserObject(req.user)
-  });
+    res.render('main', {
+        bootstrappedUser: utility.getUserObject(req.user)
+    });
 });
 
 module.exports = router;

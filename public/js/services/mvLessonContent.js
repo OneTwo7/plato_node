@@ -223,7 +223,6 @@ angular.module('app').factory('mvLessonContent', [
               while (text.slice(tabs, tabs + 1) === '\t') {
                 tabs++;
               }
-              var $newDiv = $('<div></div>');
               if (offset < tabs) {
                 tabs = offset;
               }
