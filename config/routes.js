@@ -28,14 +28,4 @@ router.all('/api/*', function (req, res) {
     res.sendStatus(404);
 });
 
-router.get('/partials/*', function (req, res) {
-    res.render('partials/' + req.params[0]);
-});
-
-router.get('*', function (req, res) {
-    res.render('main', {
-        bootstrappedUser: utility.getUserObject(req.user)
-    });
-});
-
 module.exports = router;
